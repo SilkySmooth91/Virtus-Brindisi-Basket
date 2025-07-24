@@ -29,7 +29,7 @@ export default function Hero() {
         
         {/* Sottotitolo */}
         <p className={`p-title text-xl md:text-3xl mt-6 mb-8 max-w-3xl mx-auto ${styles.heroSubtitle} ${styles.animateSlideUpDelay3}`}>
-          Aiutare, attraverso lo sport del basket, a formare l'uomo che è dentro ogni bambino, ogni ragazzo, ogni atleta.
+          Aiutiamo, attraverso lo sport del basket, a formare l'uomo che è dentro ogni bambino, ogni ragazzo, ogni atleta.
         </p>
       </div>
     </section>
