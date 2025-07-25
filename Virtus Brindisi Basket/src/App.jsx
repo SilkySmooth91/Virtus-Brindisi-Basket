@@ -1,14 +1,12 @@
-import React from "react";
-import Navbar from "./components/UI elems/Navbar";
-import Hero from "./components/UI elems/Hero";
+import Home from "./components/pages/Home";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Hero />
+      <Home />
     </>
   );
 }
 
 export default App;
+
