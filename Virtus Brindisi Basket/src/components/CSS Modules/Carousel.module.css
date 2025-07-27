@@ -24,3 +24,40 @@
   pointer-events: none;
   z-index: 10;
 }
+
+.giantHashtag {
+  font-size: 17.9rem !important;
+  transform: scaleY(1.5);
+  transform-origin: center;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 768px) {
+  .giantHashtag {
+    font-size: 10rem !important;
+    transform: scaleY(1.5);
+    transform-origin: center;
+    display: inline-block;
+  }
+
+  .weAre {
+    font-size: 5rem !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .giantHashtag {
+    font-size: 6rem !important;
+    transform: scaleY(1.5);
+    transform-origin: center;
+    display: inline-block;
+  }
+
+  .weAre {
+    font-size: 3rem !important;
+  }
+}
+
+.weAre {
+  line-height: 0.8 !important;
+}

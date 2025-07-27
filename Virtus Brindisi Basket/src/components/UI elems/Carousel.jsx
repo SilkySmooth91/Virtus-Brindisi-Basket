@@ -14,19 +14,39 @@ export default function Carousel() {
   ]
 
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Hook per detectare se siamo su mobile (< 768px)
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkIsMobile()
+    window.addEventListener('resize', checkIsMobile)
+    
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
 
   const { scrollYProgress } = useScroll()
 
+  // Animazioni Motion solo su desktop (>= 768px)
   const x = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.4, 0.6],
-    [-400, -200, -50, 0]
+    [0, 0.2, 0.3, 0.4, 0.8],
+    isMobile ? [0, 0, 0, 0, 0] : [-400, -200, -100, -50, 0]
+  )
+
+  const reverseX = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.3, 0.4, 0.8],
+    isMobile ? [0, 0, 0, 0, 0] : [400, 200, 100, 50, 0]
   )
 
   const opacity = useTransform(
     scrollYProgress,
     [0, 0.2, 0.4, 0.6],
-    [0, 0.5, 0.8, 1]
+    isMobile ? [1, 1, 1, 1] : [0, 0.5, 0.8, 1]
   )
 
   // Auto-scroll ogni 5 secondi
@@ -54,25 +74,43 @@ export default function Carousel() {
   }
 
   return (
-    <section id='carousel-section' className="max-w-screen-2xl mx-auto py-8 bg-black">
-      <div className="flex justify-center items-center text-center mb-8 h-40">
-        <motion.h2 
-        style={{ x, opacity }}
-        initial={{ x: -400, opacity: 0 }}
-        animate={{ x:0, opacity: 1 }}
-        transition={{ 
-        type: "spring",
-        stiffness: 120,
-        damping: 25,
-        duration: 0.6
-        }}
-        className="p-title italic text-yellow-400 text-3xl md:text-4xl font-bold mb-4">
-            #WeAreVirtusBrindisi
-        </motion.h2>
-      </div>
+    <section id='carousel-section' className="w-full h-screen bg-black relative">
+      <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-2 h-full max-w-screen-2xl mx-auto px-4">
+        
+        {/* H2 - Sopra su mobile, a sinistra su desktop */}
+        <div className="flex-1 flex justify-center items-center w-full lg:w-auto">
+          <motion.h2 
+            style={isMobile ? {} : { x, opacity }}
+            initial={isMobile ? {} : { x: -400, opacity: 0 }}
+            animate={isMobile ? {} : { x: 0, opacity: 1 }}
+            transition={isMobile ? {} : { 
+              type: "spring",
+              stiffness: 120,
+              damping: 25,
+              duration: 1
+            }}
+            className="flex flex-row items-center text-yellow-400 font-bold text-center lg:text-left">
+              <div className={`${styles.giantHashtag} italic text-center mb-2 lg:mb-0 lg:mr-4 text-2xl md:text-4xl lg:text-6xl xl:text-8xl 2xl:text-9xl`}>
+                #
+              </div>
+              <div className={`${styles.weAre} text-9xl uppercase text-white`}>
+                WeAre <br /><span className='text-yellow-400'>Virtus</span> <br />Brindisi <br />Basket
+              </div>
+          </motion.h2>
+        </div>
 
-      {/* Carosello container */}
-      <div className="relative w-full h-96 md:h-[500px] overflow-hidden shadow-xl bg-gray-200">
+        {/* Carosello - Sotto su mobile, a destra su desktop */}
+        <motion.div 
+        className="flex-1 relative h-1/2 lg:h-full w-full overflow-hidden shadow-xl bg-gray-200"
+        style={isMobile ? {} : { x: reverseX, opacity }}
+        initial={isMobile ? {} : { reverseX: 400, opacity: 0 }}
+        animate={isMobile ? {} : { reverseX: 0, opacity: 1 }}
+        transition={isMobile ? {} : { 
+          type: "spring",
+          stiffness: 120,
+          damping: 25,
+          duration: 1
+        }}>
         {/* Immagini */}
         <div 
           className={`${styles.imageContainer}`}
@@ -134,10 +172,11 @@ export default function Carousel() {
         {/* Overlay gradiente per migliorare visibilità dei controlli */}
         <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/20 to-transparent pointer-events-none z-10"></div>
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/20 to-transparent pointer-events-none z-10"></div>
+        </motion.div>
       </div>
 
-      {/* Indicatori (pallini) */}
-      <div className="flex justify-center mt-6 space-x-2">
+      {/* Indicatori (pallini) - Posizionati dentro la sezione nera */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50">
         {images.map((_, index) => (
           <button
             key={index}

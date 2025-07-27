@@ -4,14 +4,15 @@ import heroImage from '../../assets/hero.jpg'
 import styles from '../CSS Modules/Hero.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { animateScroll as scroll } from 'react-scroll'
 
 export default function Hero() {
   const scrollToNextSection = () => {
     const carouselSection = document.getElementById('carousel-section')
     if (carouselSection) {
-      carouselSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start' 
+      scroll.scrollTo(carouselSection.offsetTop, {
+        duration: 1300,
+        smooth: 'easeInOutQuint'
       })
     }
   }
