@@ -16,3 +16,7 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+:root {
+  overflow-x: hidden; /* Previene scroll orizzontale */
+}

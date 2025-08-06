@@ -19,7 +19,7 @@ export default function Hero() {
 
   return (
     <section 
-      className={`relative h-screen flex justify-center max-w-screen-2xl mx-auto ${styles.heroSection} ${styles.animateFadeIn}`}
+      className={`relative h-screen flex justify-center w-full mx-auto ${styles.heroSection} ${styles.animateFadeIn}`}
       style={{ backgroundImage: `url(${heroImage})` }}>
 
       {/* Overlay scuro */}

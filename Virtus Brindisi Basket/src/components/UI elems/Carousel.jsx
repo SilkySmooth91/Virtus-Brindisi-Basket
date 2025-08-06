@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import styles from '../CSS Modules/Carousel.module.css'
@@ -15,6 +15,9 @@ export default function Carousel() {
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+  
+  // Ref per il target dell'animazione Motion
+  const carouselRef = useRef(null)
 
   // Hook per detectare se siamo su mobile (< 768px)
   useEffect(() => {
@@ -28,25 +31,30 @@ export default function Carousel() {
     return () => window.removeEventListener('resize', checkIsMobile)
   }, [])
 
-  const { scrollYProgress } = useScroll()
+  // useScroll con ref specifico per il carousel
+  const { scrollYProgress } = useScroll({
+    target: carouselRef,
+    offset: ["start end", "end start"]
+  })
 
   // Animazioni Motion solo su desktop (>= 768px)
+  // Valori aggiustati per completare l'animazione quando il carousel è al centro del viewport
   const x = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.3, 0.4, 0.8],
-    isMobile ? [0, 0, 0, 0, 0] : [-400, -200, -100, -50, 0]
+    [0, 0.2, 0.4, 0.5],
+    isMobile ? [0, 0, 0, 0] : [-400, -200, -50, 0]
   )
 
   const reverseX = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.3, 0.4, 0.8],
-    isMobile ? [0, 0, 0, 0, 0] : [400, 200, 100, 50, 0]
+    [0, 0.2, 0.4, 0.5],
+    isMobile ? [0, 0, 0, 0] : [400, 200, 50, 0]
   )
 
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.4, 0.6],
-    isMobile ? [1, 1, 1, 1] : [0, 0.5, 0.8, 1]
+    [0, 0.2, 0.4, 0.5],
+    isMobile ? [1, 1, 1, 1] : [0, 0.4, 0.8, 1]
   )
 
   // Auto-scroll ogni 5 secondi
@@ -74,7 +82,7 @@ export default function Carousel() {
   }
 
   return (
-    <section id='carousel-section' className="w-full h-screen bg-black relative">
+    <section ref={carouselRef} id='carousel-section' className="w-full h-screen bg-black relative">
       <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-2 h-full max-w-screen-2xl mx-auto px-4">
         
         {/* H2 - Sopra su mobile, a sinistra su desktop */}
@@ -176,7 +184,7 @@ export default function Carousel() {
       </div>
 
       {/* Indicatori (pallini) - Posizionati dentro la sezione nera */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-40">
         {images.map((_, index) => (
           <button
             key={index}
