@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import InfoCard from "./InfoCard"
 import MainButton from "./MainButton"
 import { motion, useAnimation } from "motion/react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function NewsSection() {
   const controls = useAnimation();
@@ -15,10 +17,10 @@ export default function NewsSection() {
   }, [controls]);
 
   return (
-    <div className="w-full bg-black py-8 px-4 md:px-8 md:h-screen">
+    <div className="w-full bg-black py-8 px-4 md:px-8 md:h-screen overflow-x-hidden">
       <motion.h2 
       className="text-5xl md:text-7xl font-bold uppercase text-white mb-6"
-      initial={{ opacity: 0, x: 400}}
+      initial={{ opacity: 0, x: 200}}
       whileInView={{ opacity: 1, x: 0}}
       transition={{duration: 0.6}}
       viewport={{ once: true }}>
@@ -48,7 +50,10 @@ export default function NewsSection() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}>
-        <MainButton>Leggi altre notizie</MainButton>
+        <MainButton>
+          Vai alle notizie
+          <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
+        </MainButton>
       </motion.div>
     </div>
   )

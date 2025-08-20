@@ -14,7 +14,13 @@ export default function Carousel() {
   ]
 
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => {
+    // Inizializza correttamente basandosi sulla window size attuale
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768
+    }
+    return false // Fallback per SSR
+  })
   
   // Ref per il target dell'animazione Motion
   const carouselRef = useRef(null)
@@ -82,7 +88,7 @@ export default function Carousel() {
   }
 
   return (
-    <section ref={carouselRef} id='carousel-section' className="w-full h-screen bg-black relative">
+    <section ref={carouselRef} id='carousel-section' className="w-full h-screen bg-black relative overflow-x-hidden">
       <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-2 h-full max-w-screen-2xl mx-auto px-4">
         
         {/* H2 - Sopra su mobile, a sinistra su desktop */}
@@ -101,7 +107,7 @@ export default function Carousel() {
               <div className={`${styles.giantHashtag} italic text-center mb-2 lg:mb-0 lg:mr-4 text-2xl md:text-4xl lg:text-6xl xl:text-8xl 2xl:text-9xl`}>
                 #
               </div>
-              <div className={`${styles.weAre} text-9xl uppercase text-white`}>
+              <div className={`${styles.weAre} text-9xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl uppercase text-white`}>
                 WeAre <br /><span className='text-yellow-400'>Virtus</span> <br />Brindisi <br />Basket
               </div>
           </motion.h2>

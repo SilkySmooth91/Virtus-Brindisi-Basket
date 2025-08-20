@@ -5,7 +5,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className="sticky top-0 left-0 z-50 bg-black h-15 flex items-center justify-center px-4 shadow-lg shadow-black/50">
+    <nav className="sticky top-0 left-0 w-screen z-[9999] bg-black h-15 flex items-center justify-center px-4 shadow-lg shadow-black/50">
       {/* Logo e titolo */}
       <div className="flex items-center text-2xl mr-4">
         <p className="text-yellow-400 font-bold mr-1">Virtus </p>
