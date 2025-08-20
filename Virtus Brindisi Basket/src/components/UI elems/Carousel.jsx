@@ -48,13 +48,13 @@ export default function Carousel() {
   const x = useTransform(
     scrollYProgress,
     [0, 0.2, 0.4, 0.5],
-    isMobile ? [0, 0, 0, 0] : [-400, -200, -50, 0]
+    isMobile ? [0, 0, 0, 0] : [-200, -100, -25, 0]
   )
 
   const reverseX = useTransform(
     scrollYProgress,
     [0, 0.2, 0.4, 0.5],
-    isMobile ? [0, 0, 0, 0] : [400, 200, 50, 0]
+    isMobile ? [0, 0, 0, 0] : [200, 100, 25, 0]
   )
 
   const opacity = useTransform(
@@ -88,14 +88,14 @@ export default function Carousel() {
   }
 
   return (
-    <section ref={carouselRef} id='carousel-section' className="w-full h-screen bg-black relative overflow-x-hidden">
-      <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-2 h-full max-w-screen-2xl mx-auto px-4">
+    <section ref={carouselRef} id='carousel-section' className="w-full h-screen bg-black relative overflow-hidden">
+      <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-2 h-full max-w-full mx-auto px-4">
         
         {/* H2 - Sopra su mobile, a sinistra su desktop */}
-        <div className="flex-1 flex justify-center items-center w-full lg:w-auto">
+        <div className="flex-1 flex justify-center items-center w-full lg:w-auto overflow-hidden">
           <motion.h2 
             style={isMobile ? {} : { x, opacity }}
-            initial={isMobile ? {} : { x: -400, opacity: 0 }}
+            initial={isMobile ? {} : { x: -200, opacity: 0 }}
             animate={isMobile ? {} : { x: 0, opacity: 1 }}
             transition={isMobile ? {} : { 
               type: "spring",
@@ -117,8 +117,8 @@ export default function Carousel() {
         <motion.div 
         className="flex-1 relative h-1/2 lg:h-full w-full overflow-hidden shadow-xl bg-gray-200"
         style={isMobile ? {} : { x: reverseX, opacity }}
-        initial={isMobile ? {} : { reverseX: 400, opacity: 0 }}
-        animate={isMobile ? {} : { reverseX: 0, opacity: 1 }}
+        initial={isMobile ? {} : { x: 200, opacity: 0 }}
+        animate={isMobile ? {} : { x: 0, opacity: 1 }}
         transition={isMobile ? {} : { 
           type: "spring",
           stiffness: 120,
