@@ -13,16 +13,18 @@ export default function CallToAction() {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}>
             <InfoCard className="flex-col justify-center items-center text-center">
-                <h2 className="p-title text-2xl font-bold mb-4">
-                    Entra a far parte della famiglia Virtus
-                </h2>
-                <p className="mb-6">
-                    Ogni trofeo racconta una storia di impegno, dedizione e spirito di squadra. Ma il nostro più grande successo resta la crescita umana e sportiva dei nostri atleti.
-                </p>
-                <MainButton>
-                    Unisciti a noi
-                    <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
-                </MainButton>
+                <div className="p-8">
+                    <h2 className="p-title text-2xl font-bold mb-4">
+                        Entra a far parte della famiglia Virtus
+                    </h2>
+                    <p className="mb-6">
+                        Ogni trofeo racconta una storia di impegno, dedizione e spirito di squadra. Ma il nostro più grande successo resta la crescita umana e sportiva dei nostri atleti.
+                    </p>
+                    <MainButton>
+                        Unisciti a noi
+                        <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
+                    </MainButton>
+                </div>
             </InfoCard>
         </motion.div>
     </section>
