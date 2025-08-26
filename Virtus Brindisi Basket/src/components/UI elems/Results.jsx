@@ -1,5 +1,5 @@
 import { motion } from "motion/react"
-import InfoCard from "./InfoCard"
+import ResultsCard from "./ResultsCard"
 
 export default function Results() {
   return (
@@ -20,7 +20,15 @@ export default function Results() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <InfoCard />
+          <ResultsCard 
+            date="15 Marzo 2024"
+            location="PalaMelfi, Brindisi"
+            homeTeam="Virtus Brindisi"
+            awayTeam="Taranto Basket"
+            homeScore={92}
+            awayScore={88}
+            category="Serie B"
+          />
         </motion.div>
         <motion.div
           initial={{ opacity: 0, x: 100 }}
@@ -28,7 +36,15 @@ export default function Results() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <InfoCard />
+          <ResultsCard 
+            date="22 Marzo 2024"
+            location="PalaQuaresima, Taranto"
+            homeTeam="Monopoli Basket"
+            awayTeam="Virtus Brindisi"
+            homeScore={78}
+            awayScore={85}
+            category="Under 21"
+          />
         </motion.div>
       </div>
 
@@ -39,7 +55,15 @@ export default function Results() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <InfoCard />
+          <ResultsCard 
+            date="8 Marzo 2024"
+            location="PalaMelfi, Brindisi"
+            homeTeam="Virtus Brindisi"
+            awayTeam="Bari Basket"
+            homeScore={95}
+            awayScore={72}
+            category="Serie A2"
+          />
         </motion.div>
         <motion.div
           initial={{ opacity: 0, x: 100 }}
@@ -47,7 +71,15 @@ export default function Results() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <InfoCard />
+          <ResultsCard 
+            date="1 Marzo 2024"
+            location="PalaSport, Lecce"
+            homeTeam="Lecce Basket"
+            awayTeam="Virtus Brindisi"
+            homeScore={81}
+            awayScore={89}
+            category="Under 18"
+          />
         </motion.div>
       </div>
     </div>

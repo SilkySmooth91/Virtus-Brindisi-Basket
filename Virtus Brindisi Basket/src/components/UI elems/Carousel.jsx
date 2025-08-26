@@ -142,7 +142,7 @@ export default function Carousel() {
         {/* Pulsante Precedente */}
         <button
           onClick={goToPrevious}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white hover:text-yellow-400 p-3 rounded-full transition-all duration-200 hover:scale-110 z-20"
+          className="flex justify-center items-center absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white hover:text-yellow-400 p-3 rounded-full transition-all duration-200 hover:scale-110 z-20 cursor-pointer"
           aria-label="Immagine precedente">
           <FontAwesomeIcon icon={faChevronLeft} className="text-xl" />
         </button>
@@ -150,7 +150,7 @@ export default function Carousel() {
         {/* Pulsante Successivo */}
         <button
           onClick={goToNext}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-200 hover:scale-110 z-20"
+          className="flex justify-center items-center absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white hover:text-yellow-400 p-3 rounded-full transition-all duration-200 hover:scale-110 z-20 cursor-pointer"
           aria-label="Immagine successiva">
           <FontAwesomeIcon icon={faChevronRight} className="text-xl" />
         </button>

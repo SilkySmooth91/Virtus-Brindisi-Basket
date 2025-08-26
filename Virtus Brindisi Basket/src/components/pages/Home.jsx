@@ -12,7 +12,11 @@ export default function Home() {
     <>
       <Navbar />
       <div className="w-full max-w-screen overflow-x-hidden">
-        <Hero />
+        <Hero 
+          title="Virtus"
+          titleHighlight="Brindisi Basket"
+          subtitle="Aiutiamo, attraverso lo sport del basket, a formare l'uomo che è dentro ogni bambino, ogni ragazzo, ogni atleta."
+        />
         <Carousel />
         <NewsSection />
         <Results />
