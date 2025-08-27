@@ -3,12 +3,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import InfoCard from './InfoCard'
 import { motion } from 'motion/react'
+import { getActiveStaff } from '../../api/staff'
 
-export default function StaffCarousel({ staffMembers = [] }) {
+export default function StaffCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [cardsPerView, setCardsPerView] = useState(3)
+  const [staffMembers, setStaffMembers] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const carouselRef = useRef(null)
   
+  // Carica i dati dello staff dal database
+  useEffect(() => {
+    const fetchStaff = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+        const data = await getActiveStaff()
+        setStaffMembers(data || [])
+      } catch (err) {
+        console.error('Error fetching staff:', err)
+        setError('Errore nel caricamento dello staff')
+        setStaffMembers([])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchStaff()
+  }, [])
+
   // Determina il numero di card visibili in base alla dimensione dello schermo
   useEffect(() => {
     const updateCardsPerView = () => {
@@ -39,8 +63,36 @@ export default function StaffCarousel({ staffMembers = [] }) {
   // Calcola la trasformazione per mostrare le card
   const translateX = -(currentIndex * (100 / cardsPerView))
   
+  // Loading state
+  if (loading) {
+    return (
+      <div className="relative w-full max-w-7xl mx-auto px-4">
+        <div className="flex justify-center items-center py-12">
+          <div className="text-gray-500">Caricamento staff...</div>
+        </div>
+      </div>
+    )
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="relative w-full max-w-7xl mx-auto px-4">
+        <div className="flex justify-center items-center py-12">
+          <div className="text-red-500">{error}</div>
+        </div>
+      </div>
+    )
+  }
+
   if (!staffMembers || staffMembers.length === 0) {
-    return null
+    return (
+      <div className="relative w-full max-w-7xl mx-auto px-4">
+        <div className="flex justify-center items-center py-12">
+          <div className="text-gray-500">Nessun membro dello staff trovato</div>
+        </div>
+      </div>
+    )
   }
   
   return (

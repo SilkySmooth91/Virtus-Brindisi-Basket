@@ -3,16 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import styles from '../CSS Modules/Carousel.module.css'
 import { motion, useScroll, useTransform } from 'motion/react'
+import { getGalleryImages } from '../../api/gallery'
 
 export default function Carousel() {
-  // Array di immagini placeholder (sostituirai con le tue immagini)
-  const images = [
-    'https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80',
-    'https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80',
-    'https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80',
-    'https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80'
-  ]
-
+  const [images, setImages] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isMobile, setIsMobile] = useState(() => {
     // Inizializza correttamente basandosi sulla window size attuale
@@ -24,6 +20,41 @@ export default function Carousel() {
   
   // Ref per il target dell'animazione Motion
   const carouselRef = useRef(null)
+
+  // Carica le immagini dal database
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        setLoading(true)
+        const data = await getGalleryImages(4) // Prendiamo 4 immagini per il carousel
+        if (data && data.length > 0) {
+          setImages(data.map(item => item.image_url))
+        } else {
+          // Fallback alle immagini placeholder se non ci sono immagini nel database
+          setImages([
+            'https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80',
+            'https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80',
+            'https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80',
+            'https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80'
+          ])
+        }
+      } catch (err) {
+        setError('Errore nel caricamento delle immagini')
+        console.error('Error fetching gallery images:', err)
+        // Fallback alle immagini placeholder in caso di errore
+        setImages([
+          'https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80',
+          'https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80',
+          'https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80',
+          'https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1440&q=80'
+        ])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchImages()
+  }, [])
 
   // Hook per detectare se siamo su mobile (< 768px)
   useEffect(() => {
@@ -65,6 +96,8 @@ export default function Carousel() {
 
   // Auto-scroll ogni 5 secondi
   useEffect(() => {
+    if (images.length === 0) return // Non avviare l'auto-scroll se non ci sono immagini
+    
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => 
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
@@ -85,6 +118,38 @@ export default function Carousel() {
 
   const goToSlide = (index) => {
     setCurrentIndex(index)
+  }
+
+  if (loading) {
+    return (
+      <section ref={carouselRef} id='carousel-section' className="w-full h-screen bg-black relative overflow-hidden">
+        <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-2 h-full max-w-full mx-auto px-4">
+          <div className="flex-1 flex justify-center items-center w-full lg:w-auto overflow-hidden">
+            <motion.h2 
+              style={isMobile ? {} : { x, opacity }}
+              initial={isMobile ? {} : { x: -200, opacity: 0 }}
+              animate={isMobile ? {} : { x: 0, opacity: 1 }}
+              transition={isMobile ? {} : { 
+                type: "spring",
+                stiffness: 120,
+                damping: 25,
+                duration: 1
+              }}
+              className="flex flex-row items-center text-yellow-400 font-bold text-center lg:text-left">
+                <div className={`${styles.giantHashtag} italic text-center mb-2 lg:mb-0 lg:mr-4 text-2xl md:text-4xl lg:text-6xl xl:text-8xl 2xl:text-9xl`}>
+                  #
+                </div>
+                <div className={`${styles.weAre} text-9xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl uppercase text-white`}>
+                  WeAre <br /><span className='text-yellow-400'>Virtus</span> <br />Brindisi <br />Basket
+                </div>
+            </motion.h2>
+          </div>
+          <div className="flex-1 relative h-1/2 lg:h-full w-full overflow-hidden shadow-xl bg-gray-200 flex items-center justify-center">
+            <div className="text-white text-xl">Caricamento gallery...</div>
+          </div>
+        </div>
+      </section>
+    )
   }
 
   return (

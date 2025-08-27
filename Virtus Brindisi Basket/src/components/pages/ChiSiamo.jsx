@@ -6,52 +6,6 @@ import chisiamoBg from '../../assets/hero.jpg' // Sostituisci con la tua immagin
 import { motion } from "motion/react"
 
 export default function ChiSiamo() {
-  // Dati di esempio per i membri dello staff
-  const staffMembers = [
-    {
-      name: "Mario",
-      surname: "Rossi",
-      role: "Allenatore Capo",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"
-    },
-    {
-      name: "Laura",
-      surname: "Bianchi",
-      role: "Assistente Allenatore",
-      photo: "https://images.unsplash.com/photo-1494790108755-2616b2139125?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"
-    },
-    {
-      name: "Giuseppe",
-      surname: "Verdi",
-      role: "Preparatore Atletico",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"
-    },
-    {
-      name: "Anna",
-      surname: "Neri",
-      role: "Fisioterapista",
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"
-    },
-    {
-      name: "Roberto",
-      surname: "Gialli",
-      role: "Team Manager",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"
-    },
-    {
-      name: "Francesca",
-      surname: "Blu",
-      role: "Psicologo Sportivo",
-      photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"
-    },
-    {
-      name: "Marco",
-      surname: "Viola",
-      role: "Responsabile Settore Giovanile",
-      photo: "https://images.unsplash.com/photo-1519058082700-08a0b56da9b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&h=150&q=80"
-    }
-  ]
-
   return (
     <>
       <Navbar />
@@ -112,7 +66,7 @@ export default function ChiSiamo() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}>
-              <StaffCarousel staffMembers={staffMembers} />
+              <StaffCarousel />
             </motion.div>
           </div>
         </section>
