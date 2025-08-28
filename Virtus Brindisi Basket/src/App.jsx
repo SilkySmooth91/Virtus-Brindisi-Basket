@@ -1,17 +1,35 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import ScrollToTop from './components/ScrollToTop';
 import Home from "./components/pages/Home";
 import ChiSiamo from "./components/pages/ChiSiamo";
+import AdminLogin from "./components/pages/AdminLogin";
+import AdminDashboard from "./components/pages/AdminDashboard";
+import StaffManagement from "./components/pages/StaffManagement";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/chi-siamo" element={<ChiSiamo />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/chi-siamo" element={<ChiSiamo />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/staff" element={
+            <ProtectedRoute>
+              <StaffManagement />
+            </ProtectedRoute>
+          } />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import { supabaseAdmin } from '../lib/supabaseAdmin'
 
 /**
  * Get all staff members (for admin)
@@ -60,7 +61,7 @@ export async function getStaffById(id) {
  * Create new staff member
  */
 export async function createStaffMember(staffData) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('staff')
     .insert([staffData])
     .select()
@@ -73,7 +74,7 @@ export async function createStaffMember(staffData) {
  * Update existing staff member
  */
 export async function updateStaffMember(id, updates) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('staff')
     .update(updates)
     .eq('id', id)
@@ -87,10 +88,21 @@ export async function updateStaffMember(id, updates) {
  * Delete staff member
  */
 export async function deleteStaffMember(id) {
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('staff')
     .delete()
     .eq('id', id)
   
   if (error) throw error
+}
+
+// Export staffApi object for easier imports
+export const staffApi = {
+  getAll: getAllStaff,
+  getActive: getActiveStaff,
+  getByRole: getStaffByRole,
+  getById: getStaffById,
+  create: createStaffMember,
+  update: updateStaffMember,
+  delete: deleteStaffMember
 }

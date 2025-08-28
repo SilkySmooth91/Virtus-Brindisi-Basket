@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMapMarkerAlt, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarkerAlt, faPhone, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { faInstagram, faFacebook, faYoutube, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { Link } from 'react-router-dom'
 import MainButton from './MainButton'
 
 export default function Footer() {
@@ -92,7 +93,7 @@ export default function Footer() {
         
         {/* Copyright e Crediti */}
         <div className="border-t border-gray-700 pt-6">
-          <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 relative">
             <p className="text-gray-400">
               © 2025 Virtus Brindisi Basket. Tutti i diritti riservati.
             </p>
@@ -116,6 +117,15 @@ export default function Footer() {
                 <FontAwesomeIcon icon={faGithub} />
               </a>
             </div>
+
+            {/* Admin Login Link - Posizionato in basso a destra */}
+            <Link 
+              to="/admin/login"
+              className="absolute bottom-0 right-0 text-gray-500 hover:text-yellow-400 transition-colors duration-300 py-2 px-3 rounded-full hover:bg-gray-800"
+              title="Accesso Amministratore"
+            >
+              <FontAwesomeIcon icon={faLock} className="text-sm" />
+            </Link>
           </div>
         </div>
         

@@ -12,9 +12,7 @@ export default function Palmares() {
     const fetchPalmares = async () => {
       try {
         setLoading(true)
-        console.log('Fetching palmares data...')
         const data = await getPalmaresForDisplay()
-        console.log('Palmares data received:', data)
         setPalmares(data)
       } catch (err) {
         console.error('Error fetching palmares:', err)
