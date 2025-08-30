@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import { supabaseAdmin } from '../lib/supabaseAdmin'
 
 /**
  * Get all scheduled matches (for admin)
@@ -81,7 +82,7 @@ export async function getScheduledMatchById(id) {
  * Create new scheduled match
  */
 export async function createScheduledMatch(matchData) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('scheduled_matches')
     .insert([matchData])
     .select()
@@ -94,7 +95,7 @@ export async function createScheduledMatch(matchData) {
  * Update existing scheduled match
  */
 export async function updateScheduledMatch(id, updates) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('scheduled_matches')
     .update(updates)
     .eq('id', id)
@@ -108,7 +109,7 @@ export async function updateScheduledMatch(id, updates) {
  * Delete scheduled match
  */
 export async function deleteScheduledMatch(id) {
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('scheduled_matches')
     .delete()
     .eq('id', id)

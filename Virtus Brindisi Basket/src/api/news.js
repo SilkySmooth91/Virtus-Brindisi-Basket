@@ -1,10 +1,10 @@
-import { supabase } from '../lib/supabase'
+import { supabaseAdmin } from '../lib/supabaseAdmin'
 
 /**
  * Get all news articles (for admin)
  */
 export async function getAllNews() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('news')
     .select('*')
     .order('created_at', { ascending: false })
@@ -17,7 +17,7 @@ export async function getAllNews() {
  * Get only published news (for public site)
  */
 export async function getPublishedNews() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('news')
     .select('*')
     .eq('published', true)
@@ -31,7 +31,7 @@ export async function getPublishedNews() {
  * Get recent news with limit (for homepage)
  */
 export async function getRecentNews(limit = 3) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('news')
     .select('*')
     .eq('published', true)
@@ -46,7 +46,7 @@ export async function getRecentNews(limit = 3) {
  * Get latest news with limit (alias for getRecentNews)
  */
 export async function getLatestNews(limit = 3) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('news')
     .select('*')
     .eq('published', true)
@@ -61,7 +61,7 @@ export async function getLatestNews(limit = 3) {
  * Get single news article by ID
  */
 export async function getNewsById(id) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('news')
     .select('*')
     .eq('id', id)
@@ -75,7 +75,7 @@ export async function getNewsById(id) {
  * Create new news article
  */
 export async function createNews(newsData) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('news')
     .insert([newsData])
     .select()
@@ -88,7 +88,7 @@ export async function createNews(newsData) {
  * Update existing news article
  */
 export async function updateNews(id, updates) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('news')
     .update(updates)
     .eq('id', id)
@@ -102,7 +102,7 @@ export async function updateNews(id, updates) {
  * Delete news article
  */
 export async function deleteNews(id) {
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('news')
     .delete()
     .eq('id', id)

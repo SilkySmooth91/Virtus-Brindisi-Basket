@@ -1,0 +1,86 @@
+/* Fix drastico per il cursore dell'editor markdown */
+/* Disabilita completamente le interferenze di Tailwind */
+.editor-container * {
+  box-sizing: border-box !important;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+.editor-container {
+  isolation: isolate !important;
+}
+
+/* Reset completo per l'editor */
+.editor-container .w-md-editor {
+  font-family: inherit !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  background: white !important;
+}
+
+.editor-container .w-md-editor * {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  word-spacing: inherit !important;
+  transform: none !important;
+  will-change: auto !important;
+  backface-visibility: visible !important;
+}
+
+/* Textarea dell'editor */
+.editor-container .w-md-editor-text-container .w-md-editor-text {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  padding: 12px !important;
+  margin: 0 !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  resize: none !important;
+  overflow-wrap: break-word !important;
+  white-space: pre-wrap !important;
+  caret-color: #000 !important;
+  color: #000 !important;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -moz-osx-font-smoothing: auto !important;
+}
+
+/* Container della textarea */
+.editor-container .w-md-editor-text-container {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Fix per il focus */
+.editor-container .w-md-editor-text:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Rimuove ogni possibile trasformazione CSS */
+.editor-container .w-md-editor-text-container,
+.editor-container .w-md-editor-text-container * {
+  transform: none !important;
+  transform-origin: initial !important;
+  perspective: none !important;
+  transform-style: flat !important;
+}
+
+/* Toolbar */
+.editor-container .w-md-editor-toolbar {
+  background-color: #f8f9fa !important;
+  border-bottom: 1px solid #e9ecef !important;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Preview */
+.editor-container .w-md-editor-preview {
+  background-color: white !important;
+  padding: 12px !important;
+}

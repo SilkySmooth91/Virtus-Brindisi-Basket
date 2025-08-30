@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import { supabaseAdmin } from '../lib/supabaseAdmin'
 
 /**
  * Get all training sessions (for admin)
@@ -63,7 +64,7 @@ export async function getTrainingSessionById(id) {
  * Create new training session
  */
 export async function createTrainingSession(sessionData) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('training_sessions')
     .insert([sessionData])
     .select()
@@ -76,7 +77,7 @@ export async function createTrainingSession(sessionData) {
  * Update existing training session
  */
 export async function updateTrainingSession(id, updates) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('training_sessions')
     .update(updates)
     .eq('id', id)
@@ -90,7 +91,7 @@ export async function updateTrainingSession(id, updates) {
  * Delete training session
  */
 export async function deleteTrainingSession(id) {
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('training_sessions')
     .delete()
     .eq('id', id)

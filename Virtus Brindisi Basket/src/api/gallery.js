@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import { supabaseAdmin } from '../lib/supabaseAdmin'
 
 /**
  * Get all gallery images (for admin)
@@ -63,7 +64,7 @@ export async function getImageById(id) {
  * Create new gallery image
  */
 export async function createGalleryImage(imageData) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('gallery')
     .insert([imageData])
     .select()
@@ -76,7 +77,7 @@ export async function createGalleryImage(imageData) {
  * Update existing gallery image
  */
 export async function updateGalleryImage(id, updates) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('gallery')
     .update(updates)
     .eq('id', id)
@@ -90,7 +91,7 @@ export async function updateGalleryImage(id, updates) {
  * Delete gallery image
  */
 export async function deleteGalleryImage(id) {
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('gallery')
     .delete()
     .eq('id', id)

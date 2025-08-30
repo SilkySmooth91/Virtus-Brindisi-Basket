@@ -5,6 +5,7 @@ import { motion, useAnimation } from "motion/react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { getLatestNews } from "../../api/news";
+import MarkdownPreview from '@uiw/react-markdown-preview';
 
 export default function NewsSection() {
   const controls = useAnimation();
@@ -44,7 +45,7 @@ export default function NewsSection() {
         className="text-5xl md:text-7xl font-bold uppercase text-white mb-6"
         initial={{ opacity: 0, x: 100}}
         whileInView={{ opacity: 1, x: 0}}
-        transition={{duration: 0.6}}
+        transition={{duration: 1}}
         viewport={{ once: true }}>
           Ultime <span className="text-yellow-400">News</span>
         </motion.h2>
@@ -60,7 +61,7 @@ export default function NewsSection() {
         className="text-5xl md:text-7xl font-bold uppercase text-white mb-6"
         initial={{ opacity: 0, x: 100}}
         whileInView={{ opacity: 1, x: 0}}
-        transition={{duration: 0.6}}
+        transition={{duration: 1}}
         viewport={{ once: true }}>
           Ultime <span className="text-yellow-400">News</span>
         </motion.h2>
@@ -75,7 +76,7 @@ export default function NewsSection() {
       className="text-5xl md:text-7xl font-bold uppercase text-white mb-6"
       initial={{ opacity: 0, x: 100}}
       whileInView={{ opacity: 1, x: 0}}
-      transition={{duration: 0.6}}
+      transition={{duration: 1}}
       viewport={{ once: true }}>
         Ultime <span className="text-yellow-400">News</span>
       </motion.h2>
@@ -87,7 +88,7 @@ export default function NewsSection() {
                 key={article.id}
                 initial={{ opacity: 0, x: index === 0 ? -100 : 100 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 1 }}
                 viewport={{ once: true }}>
                 <InfoCard className="p-6 flex-col justify-start min-h-[400px]">
                   {article.image_url && (
@@ -132,7 +133,7 @@ export default function NewsSection() {
               <motion.div
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1 }}
               viewport={{ once: true }}>
                 <InfoCard className="p-6 flex-col min-h-[400px] justify-center">
                   <div className="text-gray-500 text-center">
@@ -144,7 +145,7 @@ export default function NewsSection() {
               <motion.div
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1 }}
               viewport={{ once: true }}>
                 <InfoCard className="p-6 flex-col min-h-[400px] justify-center">
                   <div className="text-gray-500 text-center">

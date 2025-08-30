@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import { supabaseAdmin } from '../lib/supabaseAdmin'
 
 /**
  * Get all palmares entries (for admin)
@@ -59,7 +60,7 @@ export async function getPalmaresById(id) {
  * Create new palmares entry
  */
 export async function createPalmares(palmaresData) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('palmares')
     .insert([palmaresData])
     .select()
@@ -72,7 +73,7 @@ export async function createPalmares(palmaresData) {
  * Update existing palmares entry
  */
 export async function updatePalmares(id, updates) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('palmares')
     .update(updates)
     .eq('id', id)
@@ -86,7 +87,7 @@ export async function updatePalmares(id, updates) {
  * Delete palmares entry
  */
 export async function deletePalmares(id) {
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('palmares')
     .delete()
     .eq('id', id)

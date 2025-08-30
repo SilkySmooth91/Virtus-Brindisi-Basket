@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import { supabaseAdmin } from '../lib/supabaseAdmin'
 
 /**
  * Get all match results (for admin)
@@ -59,7 +60,7 @@ export async function getMatchResultById(id) {
  * Create new match result
  */
 export async function createMatchResult(matchData) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('scores')
     .insert([matchData])
     .select()
@@ -72,7 +73,7 @@ export async function createMatchResult(matchData) {
  * Update existing match result
  */
 export async function updateMatchResult(id, updates) {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('scores')
     .update(updates)
     .eq('id', id)
@@ -86,7 +87,7 @@ export async function updateMatchResult(id, updates) {
  * Delete match result
  */
 export async function deleteMatchResult(id) {
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('scores')
     .delete()
     .eq('id', id)
