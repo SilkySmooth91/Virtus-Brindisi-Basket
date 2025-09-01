@@ -110,15 +110,6 @@ export default function NewsPage() {
     ]
   }
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('it-IT', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
-  }
-
   const clearFilters = () => {
     setSelectedMonth('')
     setSelectedYear('')

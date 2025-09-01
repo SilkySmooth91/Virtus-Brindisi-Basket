@@ -18,10 +18,12 @@ export default function Home() {
           subtitle="Aiutiamo, attraverso lo sport del basket, a formare l'uomo che è dentro ogni bambino, ogni ragazzo, ogni atleta."
         />
         <Carousel />
-        <NewsSection />
-        <Results />
-        <Palmares />
-        <CallToAction />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <NewsSection />
+          <Results />
+          <Palmares />
+          <CallToAction />
+        </div>
         <Footer />
       </div>
     </>

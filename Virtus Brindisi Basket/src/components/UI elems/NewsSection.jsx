@@ -41,7 +41,7 @@ export default function NewsSection() {
 
   if (loading) {
     return (
-      <div className="w-full bg-black py-8 px-4 md:px-8 md:min-h-screen overflow-hidden">
+      <div className="w-full bg-black py-8 px-4 md:px-8 overflow-hidden">
         <motion.h2 
         className="text-5xl md:text-7xl font-bold uppercase text-white mb-6"
         initial={{ opacity: 0, x: 100}}
