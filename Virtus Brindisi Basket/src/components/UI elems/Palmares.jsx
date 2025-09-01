@@ -64,7 +64,7 @@ export default function Palmares() {
   }
 
   return (
-    <section className="py-8 px-4 md:px-8 mt-40">
+    <section className="py-8 px-4 md:px-8 sm:mt-10 md:mt-20">
         <motion.div 
         className="flex justify-center items-center mb-6"
         initial={{ opacity: 0, y: 50 }}

@@ -6,7 +6,7 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons"
 
 export default function CallToAction() {
   return (
-    <section className="flex justify-center items-center py-8 px-4 md:px-8 mt-20">
+    <section className="flex justify-center items-center py-8 px-4 md:px-8 my-20">
         <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}

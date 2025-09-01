@@ -6,11 +6,11 @@ import {
   faArrowRight
 } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import MarkdownPreview from '@uiw/react-markdown-preview'
 
 export default function NewsCard({ article, showFullDate = false, showAuthor = true, compact = false }) {
   const [imageError, setImageError] = useState(false)
-  const [showFullContent, setShowFullContent] = useState(false)
 
   const formatDate = (dateString) => {
     if (showFullDate) {
@@ -53,10 +53,6 @@ export default function NewsCard({ article, showFullDate = false, showAuthor = t
   const truncateContent = (content, maxLength = 150) => {
     if (!content) return ''
     
-    if (showFullContent) {
-      return content
-    }
-    
     // Converti markdown in testo semplice per l'anteprima
     const cleanText = markdownToText(content)
     
@@ -72,13 +68,13 @@ export default function NewsCard({ article, showFullDate = false, showAuthor = t
   }
 
   return (
-    <article className={`bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-gray-300 ${
-      compact ? 'flex' : ''
+    <article className={`bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border-2 border-gray-300 hover:border-yellow-400 ${
+      compact ? 'flex h-32' : 'h-[500px] flex flex-col'
     }`}>
       {/* Immagine */}
       {article.image_url && !imageError && (
         <div className={`relative ${
-          compact ? 'w-32 h-24 flex-shrink-0' : 'h-48'
+          compact ? 'w-32 h-24 flex-shrink-0' : 'h-48 flex-shrink-0'
         }`}>
           <img
             src={article.image_url}
@@ -91,10 +87,10 @@ export default function NewsCard({ article, showFullDate = false, showAuthor = t
       )}
 
       {/* Contenuto */}
-      <div className={`p-6 ${compact ? 'flex-1' : ''}`}>
+      <div className={`p-6 ${compact ? 'flex-1' : 'flex-1 flex flex-col'}`}>
         {/* Header */}
         <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col space-y-2">
             <div className="flex items-center">
               <FontAwesomeIcon icon={faCalendarAlt} className="w-4 h-4 mr-1" />
               <time dateTime={article.created_at}>
@@ -126,39 +122,25 @@ export default function NewsCard({ article, showFullDate = false, showAuthor = t
         </h2>
 
         {/* Contenuto */}
-        <div className={`text-gray-600 leading-relaxed ${compact ? 'text-sm' : ''}`}>
-          {showFullContent ? (
-            <MarkdownPreview 
-              source={article.content}
-              style={{ backgroundColor: 'transparent', color: 'inherit' }}
-            />
-          ) : (
-            <p>{truncateContent(article.content)}</p>
-          )}
+        <div className={`text-gray-600 leading-relaxed flex-1 ${compact ? 'text-sm' : ''}`}>
+          <p className={`${compact ? 'line-clamp-2' : 'line-clamp-4'}`}>
+            {truncateContent(article.content, compact ? 100 : 200)}
+          </p>
           
-          {!showFullContent && article.content.length > 150 && (
-            <button
-              onClick={() => setShowFullContent(true)}
-              className="text-yellow-600 hover:text-yellow-700 text-sm font-medium mt-2 inline-flex items-center cursor-pointer transition-colors"
+          <div className="mt-auto pt-4">
+            <Link 
+              to={`/news/${article.id}`}
+              className="text-yellow-600 hover:text-yellow-700 text-sm font-medium inline-flex items-center cursor-pointer transition-colors"
             >
               Leggi tutto
               <FontAwesomeIcon icon={faArrowRight} className="w-3 h-3 ml-1" />
-            </button>
-          )}
-          
-          {showFullContent && article.content.length > 150 && (
-            <button
-              onClick={() => setShowFullContent(false)}
-              className="text-gray-500 hover:text-gray-600 text-sm font-medium mt-2 cursor-pointer transition-colors"
-            >
-              Mostra meno
-            </button>
-          )}
+            </Link>
+          </div>
         </div>
 
         {/* Footer con categoria se presente */}
         {article.category && (
-          <div className="mt-4 pt-4 border-t border-gray-100">
+          <div className="mt-auto pt-4 border-t border-gray-100">
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-400 text-black">
               {article.category}
             </span>

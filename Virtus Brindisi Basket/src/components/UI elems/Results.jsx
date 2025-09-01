@@ -62,7 +62,7 @@ export default function Results() {
   const secondRow = results.slice(2, 4)
 
   return (
-    <div className="w-full bg-black py-8 px-4 md:px-8 mt-40 overflow-hidden">
+    <div className="w-full bg-black py-8 px-4 md:px-8 sm:mt-10 md:mt-20 overflow-hidden">
       <motion.h2
         className="text-5xl md:text-7xl font-bold uppercase text-white mb-6"
         initial={{ opacity: 0, x: 100 }}

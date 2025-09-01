@@ -9,6 +9,7 @@ import {
   faSpinner,
   faSearch
 } from '@fortawesome/free-solid-svg-icons'
+import { motion } from 'motion/react'
 import { getPublishedNews } from '../../api/news'
 import NewsCard from '../News/NewsCard'
 import Navbar from '../UI elems/Navbar'
@@ -137,22 +138,47 @@ export default function NewsPage() {
       <div className="min-h-screen bg-black py-8">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-full mb-4">
-            <FontAwesomeIcon icon={faNewspaper} className="text-2xl text-yellow-400" />
-          </div>
-          <h1 className="text-4xl font-bold text-white mb-4">
+        <motion.div 
+          className="text-center mb-8"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.div 
+            className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-full mb-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <FontAwesomeIcon icon={faNewspaper} className="text-3xl text-yellow-400" />
+          </motion.div>
+          <motion.h1 
+            className="text-7xl uppercase font-bold text-white mb-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Tutte le <span className="text-yellow-400">Notizie</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          </motion.h1>
+          <motion.p 
+            className="text-xl text-gray-300 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Resta aggiornato su tutte le novità, i risultati e gli eventi della Virtus Brindisi Basket
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Filtri */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8 border border-gray-200">
+        <motion.div 
+          className="bg-white rounded-lg shadow-lg p-6 mb-8 border border-gray-200"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <div className="flex items-center mb-4">
-            <FontAwesomeIcon icon={faFilter} className="text-gray-600 mr-2" />
+            <FontAwesomeIcon icon={faFilter} className="text-yellow-500 mr-2" />
             <h3 className="text-lg font-semibold text-gray-900">Filtri</h3>
             {(selectedMonth || selectedYear || searchTerm) && (
               <button
@@ -209,53 +235,93 @@ export default function NewsPage() {
             {/* Risultati */}
             <div className="flex items-center text-sm text-gray-600">
               <FontAwesomeIcon icon={faNewspaper} className="mr-2" />
-              {filteredNews.length} notizia{filteredNews.length === 1 ? '' : 'e'} trovata{filteredNews.length === 1 ? '' : 'e'}
+              {filteredNews.length} notizie trovate
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Risultati */}
         {error && (
-          <div className="bg-red-900 border border-red-700 text-red-300 px-4 py-3 rounded mb-6">
+          <motion.div 
+            className="bg-red-900 border border-red-700 text-red-300 px-4 py-3 rounded mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2, delay: 0.3 }}
+          >
             {error}
-          </div>
+          </motion.div>
         )}
 
         {filteredNews.length === 0 ? (
-          <div className="text-center py-12">
-            <FontAwesomeIcon icon={faNewspaper} className="text-6xl text-gray-600 mb-4" />
-            <h3 className="text-xl font-medium text-white mb-2">
+          <motion.div 
+            className="text-center py-12"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2, delay: 0.3 }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, delay: 0.3 }}
+            >
+              <FontAwesomeIcon icon={faNewspaper} className="text-6xl text-gray-600 mb-4" />
+            </motion.div>
+            <motion.h3 
+              className="text-xl font-medium text-white mb-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, delay: 0.3 }}
+            >
               {searchTerm || selectedMonth || selectedYear 
                 ? 'Nessuna notizia trovata' 
                 : 'Non ci sono ancora notizie'
               }
-            </h3>
-            <p className="text-gray-400 mb-4">
+            </motion.h3>
+            <motion.p 
+              className="text-gray-400 mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, delay: 0.3 }}
+            >
               {searchTerm || selectedMonth || selectedYear 
                 ? 'Prova a modificare i filtri di ricerca.' 
                 : 'Le notizie appariranno qui quando saranno pubblicate.'
               }
-            </p>
+            </motion.p>
             {(selectedMonth || selectedYear || searchTerm) && (
-              <button
+              <motion.button
                 onClick={clearFilters}
                 className="px-4 py-2 bg-yellow-400 text-black rounded-md hover:bg-yellow-300 transition-colors cursor-pointer font-medium"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, delay: 0.3 }}
               >
                 Mostra tutte le notizie
-              </button>
+              </motion.button>
             )}
-          </div>
+          </motion.div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredNews.map((article) => (
-              <NewsCard 
-                key={article.id} 
-                article={article}
-                showFullDate={true}
-                showAuthor={true}
-              />
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {filteredNews.map((article, index) => (
+              <motion.div
+                key={article.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 + (index * 0.1) }}
+              >
+                <NewsCard 
+                  article={article}
+                  showFullDate={true}
+                  showAuthor={true}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
       </div>

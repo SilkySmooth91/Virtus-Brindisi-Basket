@@ -41,7 +41,7 @@ export default function NewsSection() {
 
   if (loading) {
     return (
-      <div className="w-full bg-black py-8 px-4 md:px-8 overflow-hidden">
+      <div className="w-full bg-black py-8 px-4 md:px-8 overflow-hidden mt-20">
         <motion.h2 
         className="text-5xl md:text-7xl font-bold uppercase text-white mb-6"
         initial={{ opacity: 0, x: 100}}
@@ -57,7 +57,7 @@ export default function NewsSection() {
 
   if (error) {
     return (
-      <div className="w-full bg-black py-8 px-4 md:px-8 md:min-h-screen overflow-hidden">
+      <div className="w-full bg-black py-8 px-4 md:px-8 overflow-hidden mt-20">
         <motion.h2 
         className="text-5xl md:text-7xl font-bold uppercase text-white mb-6"
         initial={{ opacity: 0, x: 100}}
@@ -72,7 +72,7 @@ export default function NewsSection() {
   }
 
   return (
-    <div className="w-full bg-black py-8 px-4 md:px-8 md:min-h-screen overflow-hidden">
+    <div className="w-full bg-black py-8 px-4 md:px-8 overflow-hidden xs:mt-10 md:mt-20">
       <motion.h2 
       className="text-5xl md:text-7xl font-bold uppercase text-white mb-6"
       initial={{ opacity: 0, x: 100}}
@@ -92,7 +92,7 @@ export default function NewsSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1 }}
                 viewport={{ once: true }}>
-                <InfoCard className="p-6 flex-col justify-start h-[500px] max-w-lg">
+                <InfoCard className="p-6 flex-col justify-start h-[500px] md:w-lg">
                   {article.image_url && (
                     <img 
                       src={article.image_url} 
@@ -121,10 +121,12 @@ export default function NewsSection() {
                     </span>
                   )}
                   <div>
-                    <MainButton>
-                      Leggi di più
-                      <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
-                    </MainButton>
+                    <Link to={`/news/${article.id}`}>
+                      <MainButton>
+                        Leggi tutto
+                        <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
+                      </MainButton>
+                    </Link>
                   </div>
                 </InfoCard>
               </motion.div>

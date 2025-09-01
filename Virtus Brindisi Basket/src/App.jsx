@@ -4,6 +4,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from "./components/pages/Home";
 import ChiSiamo from "./components/pages/ChiSiamo";
 import NewsPage from "./components/pages/NewsPage";
+import NewsDetailPage from "./components/pages/NewsDetailPage";
 import AdminLogin from "./components/pages/AdminLogin";
 import AdminDashboard from "./components/pages/AdminDashboard";
 import StaffManagement from "./components/pages/StaffManagement";
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/chi-siamo" element={<ChiSiamo />} />
           <Route path="/news" element={<NewsPage />} />
+          <Route path="/news/:id" element={<NewsDetailPage />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={
             <ProtectedRoute>
