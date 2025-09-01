@@ -3,11 +3,16 @@ import { AuthProvider } from './contexts/AuthContext';
 import ScrollToTop from './components/ScrollToTop';
 import Home from "./components/pages/Home";
 import ChiSiamo from "./components/pages/ChiSiamo";
+import NewsPage from "./components/pages/NewsPage";
 import AdminLogin from "./components/pages/AdminLogin";
 import AdminDashboard from "./components/pages/AdminDashboard";
 import StaffManagement from "./components/pages/StaffManagement";
 import NewsManagement from "./components/pages/NewsManagement";
 import NewsEditor from "./components/pages/NewsEditor";
+import GalleryManagement from "./components/pages/GalleryManagement";
+import PalmaresManagement from "./components/pages/PalmaresManagement";
+import MatchResultsManagement from "./components/pages/MatchResultsManagement";
+import CalendarManagement from "./components/pages/CalendarManagement";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
 function App() {
@@ -18,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/chi-siamo" element={<ChiSiamo />} />
+          <Route path="/news" element={<NewsPage />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={
             <ProtectedRoute>
@@ -42,6 +48,26 @@ function App() {
           <Route path="/admin/news/edit/:id" element={
             <ProtectedRoute>
               <NewsEditor />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/gallery" element={
+            <ProtectedRoute>
+              <GalleryManagement />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/palmares" element={
+            <ProtectedRoute>
+              <PalmaresManagement />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/results" element={
+            <ProtectedRoute>
+              <MatchResultsManagement />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/calendar" element={
+            <ProtectedRoute>
+              <CalendarManagement />
             </ProtectedRoute>
           } />
         </Routes>

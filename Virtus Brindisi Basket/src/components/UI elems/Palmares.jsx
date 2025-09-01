@@ -64,19 +64,20 @@ export default function Palmares() {
   }
 
   return (
-    <section className="py-8 px-4 md:px-8">
+    <section className="py-8 px-4 md:px-8 mt-40">
         <motion.div 
         className="flex justify-center items-center mb-6"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}>
-            <h2 className="p-title text-3xl font-bold text-white mb-6">
+            <h2 className="p-title text-3xl font-bold text-white text-center mb-6">
               I nostri trofei parlano del nostro 
               <span className="text-yellow-400"> impegno</span>
             </h2>
         </motion.div>
         <motion.div
+        className=""
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -85,11 +86,11 @@ export default function Palmares() {
               <>
                 <div className="flex flex-col md:flex-row justify-center gap-4">
                   {palmares.slice(0, 2).map((achievement) => (
-                    <InfoCard key={achievement.id} className="p-6 flex-col justify-start min-h-[200px]">
+                    <InfoCard key={achievement.id} className="p-6 flex-col justify-start min-h-[200px] max-w-lg flex-shrink-0">
                       <h3 className="text-xl font-bold text-gray-800 mb-3 text-center">
                         {achievement.name}
                       </h3>
-                      <div className="text-2xl font-bold text-yellow-600 mb-3 text-center">
+                      <div className="text-2xl font-bold bg-yellow-100 rounded-3xl px-2 py-1 text-yellow-600 mb-3 text-center">
                         {achievement.year}
                       </div>
                       <p className="text-gray-600 text-sm text-center flex-grow">
@@ -101,11 +102,11 @@ export default function Palmares() {
                 {palmares.length > 2 && (
                   <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
                     {palmares.slice(2, 4).map((achievement) => (
-                      <InfoCard key={achievement.id} className="p-6 flex-col justify-start min-h-[200px]">
+                      <InfoCard key={achievement.id} className="p-6 flex-col justify-start min-h-[200px] max-w-lg flex-shrink-0">
                         <h3 className="text-xl font-bold text-gray-800 mb-3 text-center">
                           {achievement.name}
                         </h3>
-                        <div className="text-2xl font-bold text-yellow-600 mb-3 text-center">
+                        <div className="text-2xl font-bold text-yellow-600 bg-yellow-100 rounded-3xl px-2 py-1 mb-3 text-center">
                           {achievement.year}
                         </div>
                         <p className="text-gray-600 text-sm text-center flex-grow">

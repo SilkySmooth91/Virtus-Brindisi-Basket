@@ -32,10 +32,10 @@ export default function AdminDashboard() {
   const menuItems = [
     { name: 'Staff', icon: faUsers, count: '4', description: 'Gestisci membri dello staff', url: '/admin/staff' },
     { name: 'News', icon: faNewspaper, count: '2', description: 'Articoli e notizie', url: '/admin/news' },
-    { name: 'Gallery', icon: faImages, count: '4', description: 'Immagini e foto', url: '#' },
-    { name: 'Palmares', icon: faTrophy, count: '4', description: 'Trofei e riconoscimenti', url: '#' },
-    { name: 'Risultati', icon: faChartLine, count: '4', description: 'Risultati partite', url: '#' },
-    { name: 'Calendario', icon: faCalendarAlt, count: '0', description: 'Partite programmate', url: '#' },
+    { name: 'Gallery', icon: faImages, count: '4', description: 'Immagini e foto', url: '/admin/gallery' },
+    { name: 'Palmares', icon: faTrophy, count: '4', description: 'Trofei e riconoscimenti', url: '/admin/palmares' },
+    { name: 'Risultati', icon: faChartLine, count: '4', description: 'Risultati partite', url: '/admin/results' },
+    { name: 'Calendario', icon: faCalendarAlt, count: '0', description: 'Programma partite e allenamenti', url: '/admin/calendar' },
   ]
 
   return (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import InfoCard from "./InfoCard"
 import MainButton from "./MainButton"
 import { motion, useAnimation } from "motion/react"
@@ -81,16 +82,17 @@ export default function NewsSection() {
         Ultime <span className="text-yellow-400">News</span>
       </motion.h2>
 
-      <div className="flex flex-col md:flex-row justify-center gap-6  md:min-h-[96] lg:h-[calc(100vh-200px)]">
+      <div className="flex flex-col md:flex-row justify-center gap-6  md:min-h-[96]">
           {news.length > 0 ? (
             news.map((article, index) => (
               <motion.div
+                className="mt-10"
                 key={article.id}
                 initial={{ opacity: 0, x: index === 0 ? -100 : 100 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1 }}
                 viewport={{ once: true }}>
-                <InfoCard className="p-6 flex-col justify-start min-h-[400px]">
+                <InfoCard className="p-6 flex-col justify-start h-[500px] max-w-lg">
                   {article.image_url && (
                     <img 
                       src={article.image_url} 
@@ -164,10 +166,12 @@ export default function NewsSection() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}>
-        <MainButton>
-          Vai alle notizie
-          <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
-        </MainButton>
+        <Link to="/news">
+          <MainButton>
+            Vai alle notizie
+            <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
+          </MainButton>
+        </Link>
       </motion.div>
     </div>
   )

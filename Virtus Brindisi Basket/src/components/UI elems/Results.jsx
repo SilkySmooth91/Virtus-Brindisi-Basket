@@ -73,9 +73,10 @@ export default function Results() {
       </motion.h2>
 
       {firstRow.length > 0 && (
-        <div className="flex flex-col md:flex-row justify-center gap-4">
+        <div className="flex flex-col md:flex-row justify-center gap-4 mt-20">
           {firstRow.map((result, index) => (
             <motion.div
+              className="max-w-lg flex-shrink-0"
               key={result.id}
               initial={{ opacity: 0, x: index === 0 ? -100 : 100 }}
               whileInView={{ opacity: 1, x: 0 }}

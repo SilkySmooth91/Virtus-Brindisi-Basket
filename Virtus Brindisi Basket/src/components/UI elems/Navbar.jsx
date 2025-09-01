@@ -21,7 +21,7 @@ export default function Navbar() {
       <ul className="hidden md:flex justify-center space-x-3 pt-1">
         <li><NavLink to="/" onClick={handleLinkClick}>Home</NavLink></li>
         <li><NavLink to="/chi-siamo" onClick={handleLinkClick}>Chi Siamo</NavLink></li>
-        <li><NavLink href="#news">News</NavLink></li>
+        <li><NavLink to="/news" onClick={handleLinkClick}>News</NavLink></li>
         <li><NavLink href="#risultati">Risultati</NavLink></li>
         <li><NavLink href="#calendari">Calendari</NavLink></li>
         <li><NavLink href="#palmares">Palmares</NavLink></li>
@@ -46,7 +46,7 @@ export default function Navbar() {
         <ul className="flex flex-col space-y-2 p-4">
           <li><NavLink to="/" onClick={handleLinkClick}>Home</NavLink></li>
           <li><NavLink to="/chi-siamo" onClick={handleLinkClick}>Chi Siamo</NavLink></li>
-          <li><NavLink href="#news" onClick={handleLinkClick}>News</NavLink></li>
+          <li><NavLink to="/news" onClick={handleLinkClick}>News</NavLink></li>
           <li><NavLink href="#risultati" onClick={handleLinkClick}>Risultati</NavLink></li>
           <li><NavLink href="#calendari" onClick={handleLinkClick}>Calendari</NavLink></li>
           <li><NavLink href="#palmares" onClick={handleLinkClick}>Palmares</NavLink></li>

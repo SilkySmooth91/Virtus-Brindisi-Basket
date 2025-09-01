@@ -6,13 +6,13 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons"
 
 export default function CallToAction() {
   return (
-    <section className="flex justify-center items-center py-8 px-4 md:px-8">
+    <section className="flex justify-center items-center py-8 px-4 md:px-8 mt-20">
         <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}>
-            <InfoCard className="flex-col justify-center items-center text-center">
+            <InfoCard className="flex-col justify-center items-center text-center max-w-5xl">
                 <div className="p-8">
                     <h2 className="p-title text-2xl font-bold mb-4">
                         Entra a far parte della famiglia Virtus

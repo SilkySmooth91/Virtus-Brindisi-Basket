@@ -24,7 +24,7 @@ export default function ResultsCard({
   const loserScoreClass = "text-black font-bold"
 
   return (
-    <InfoCard className="lg:min-w-lg w-full px-6 py-8">
+    <InfoCard className="lg:min-w-lg px-6 py-8">
       <div className="space-y-3 w-full">
         <div className="flex gap-4 justify-center">
             {/* Data */}
