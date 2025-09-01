@@ -9,7 +9,8 @@ export default function ResultsCard({
   awayTeam = "Squadra Avversaria",
   homeScore = 85,
   awayScore = 78,
-  category = "Serie A"
+  category = "Serie A",
+  isFullWidth = false // Nuovo prop per layout esteso
 }) {
   // Determina quale squadra ha vinto
   const homeWins = homeScore > awayScore
@@ -24,9 +25,9 @@ export default function ResultsCard({
   const loserScoreClass = "text-black font-bold"
 
   return (
-    <InfoCard className="lg:min-w-lg px-6 py-8">
+    <InfoCard className={`${isFullWidth ? 'w-full' : 'lg:min-w-lg'} px-6 py-8`}>
       <div className="space-y-3 w-full">
-        <div className="flex gap-4 justify-center">
+        <div className={`flex gap-4 ${isFullWidth ? 'justify-start' : 'justify-center'}`}>
             {/* Data */}
             <div className="flex items-center gap-1">
               <FontAwesomeIcon icon={faCalendarDays} className="text-gray-400 text-xs" />
@@ -47,8 +48,8 @@ export default function ResultsCard({
         </div>
         
         {/* Risultato della partita */}
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex-1 min-w-0">
+        <div className={`flex items-center ${isFullWidth ? 'justify-start' : 'justify-between'} gap-4`}>
+          <div className={`${isFullWidth ? 'min-w-0' : 'flex-1 min-w-0'}`}>
             <p className="text-base font-semibold text-gray-800">{homeTeam}</p>
           </div>
           
@@ -68,20 +69,22 @@ export default function ResultsCard({
             </div>
           </div>
           
-          <div className="flex-1 min-w-0 text-right">
+          <div className={`${isFullWidth ? 'min-w-0' : 'flex-1 min-w-0 text-right'}`}>
             <p className="text-base font-semibold text-gray-800">{awayTeam}</p>
           </div>
         </div>
         
         {/* Indicatore risultato */}
-        <div className="text-center mt-2">
-          {virtusWins && (
-            <div className="flex items-center justify-center gap-1">
-              <FontAwesomeIcon icon={faTrophy} className="text-yellow-500" />
-              <span className="text-yellow-500 font-semibold">Vittoria Virtus!</span>
-            </div>
-          )}
-        </div>
+        {!isFullWidth && (
+          <div className="text-center mt-2">
+            {virtusWins && (
+              <div className="flex items-center justify-center gap-1">
+                <FontAwesomeIcon icon={faTrophy} className="text-yellow-500" />
+                <span className="text-yellow-500 font-semibold">Vittoria Virtus!</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </InfoCard>
   )

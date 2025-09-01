@@ -22,7 +22,7 @@ export default function Navbar() {
         <li><NavLink to="/" onClick={handleLinkClick}>Home</NavLink></li>
         <li><NavLink to="/chi-siamo" onClick={handleLinkClick}>Chi Siamo</NavLink></li>
         <li><NavLink to="/news" onClick={handleLinkClick}>News</NavLink></li>
-        <li><NavLink href="#risultati">Risultati</NavLink></li>
+        <li><NavLink to="/risultati" onClick={handleLinkClick}>Risultati</NavLink></li>
         <li><NavLink href="#calendari">Calendari</NavLink></li>
         <li><NavLink href="#palmares">Palmares</NavLink></li>
         <li><NavLink href="#contatti">Contatti</NavLink></li>
@@ -47,7 +47,7 @@ export default function Navbar() {
           <li><NavLink to="/" onClick={handleLinkClick}>Home</NavLink></li>
           <li><NavLink to="/chi-siamo" onClick={handleLinkClick}>Chi Siamo</NavLink></li>
           <li><NavLink to="/news" onClick={handleLinkClick}>News</NavLink></li>
-          <li><NavLink href="#risultati" onClick={handleLinkClick}>Risultati</NavLink></li>
+          <li><NavLink to="/risultati" onClick={handleLinkClick}>Risultati</NavLink></li>
           <li><NavLink href="#calendari" onClick={handleLinkClick}>Calendari</NavLink></li>
           <li><NavLink href="#palmares" onClick={handleLinkClick}>Palmares</NavLink></li>
           <li><NavLink href="#contatti" onClick={handleLinkClick}>Contatti</NavLink></li>

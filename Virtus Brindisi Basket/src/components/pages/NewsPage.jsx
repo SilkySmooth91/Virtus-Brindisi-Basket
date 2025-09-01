@@ -172,7 +172,7 @@ export default function NewsPage() {
 
         {/* Filtri */}
         <motion.div 
-          className="bg-white rounded-lg shadow-lg p-6 mb-8 border border-gray-200"
+          className="bg-white rounded-lg shadow-lg p-6 mb-8 border-2 border-yellow-400"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
