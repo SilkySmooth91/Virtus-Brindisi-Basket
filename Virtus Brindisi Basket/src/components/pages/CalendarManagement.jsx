@@ -328,7 +328,8 @@ export default function CalendarManagement() {
             </div>
           </div>
         </div>
-      )}      {/* Main Content */}
+      )}      
+      {/* Main Content */}
       <main className="max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
         <div className="px-4 sm:px-0">
           {error && (
@@ -346,6 +347,7 @@ export default function CalendarManagement() {
               onEditTraining={handleCalendarEditTraining}
               onCreateMatch={handleCalendarCreateMatch}
               onCreateTraining={handleCalendarCreateTraining}
+              isPublicView={false} // Vista amministrativa
             />
           ) : (
             // Vista Lista (contenuto esistente)

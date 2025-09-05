@@ -1,13 +1,37 @@
 import NavLink from "./NavLink";
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isCalendarDropdownOpen, setIsCalendarDropdownOpen] = useState(false)
+  const dropdownRef = useRef(null)
+
+  // Funzione per chiudere il dropdown quando si clicca fuori
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsCalendarDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   // Funzione per chiudere il menu mobile quando si clicca su un link
   const handleLinkClick = () => {
     setIsMenuOpen(false)
+    setIsCalendarDropdownOpen(false)
+  }
+
+  // Funzione per gestire il dropdown calendari
+  const toggleCalendarDropdown = () => {
+    setIsCalendarDropdownOpen(!isCalendarDropdownOpen)
   }
 
   return (
@@ -23,9 +47,47 @@ export default function Navbar() {
         <li><NavLink to="/chi-siamo" onClick={handleLinkClick}>Chi Siamo</NavLink></li>
         <li><NavLink to="/news" onClick={handleLinkClick}>News</NavLink></li>
         <li><NavLink to="/risultati" onClick={handleLinkClick}>Risultati</NavLink></li>
-        <li><NavLink href="#calendari">Calendari</NavLink></li>
+        
+        {/* Dropdown Calendari */}
+        <li className="relative" ref={dropdownRef}>
+          <button
+            onClick={toggleCalendarDropdown}
+            className="flex items-center space-x-1 px-4 py-2 text-white hover:text-yellow-400 transition-colors duration-300 font-medium"
+          >
+            <span>Calendari</span>
+            <FontAwesomeIcon 
+              icon={faChevronDown} 
+              className={`w-3 h-3 transition-transform duration-200 ${
+                isCalendarDropdownOpen ? 'rotate-180' : ''
+              }`} 
+            />
+          </button>
+          
+          {/* Dropdown Menu */}
+          <div className={`absolute top-12 left-0 mt-1 w-55 bg-black rounded-md shadow-lg border-1 border-gray-400 overflow-hidden transition-all duration-200 z-50 ${
+            isCalendarDropdownOpen 
+              ? 'opacity-100 visible transform translate-y-0' 
+              : 'opacity-0 invisible transform -translate-y-2'
+          }`}>
+            <Link
+              to="/calendario-partite"
+              onClick={handleLinkClick}
+              className="block px-4 py-3 text-white hover:text-yellow-400 hover:bg-gray-900 transition-colors duration-200 font-medium"
+            >
+              Calendario Partite
+            </Link>
+            <Link
+              to="/calendario-allenamenti"
+              onClick={handleLinkClick}
+              className="block px-4 py-3 text-white hover:text-yellow-400 hover:bg-gray-900 transition-colors duration-200 border-t border-gray-700 font-medium"
+            >
+              Calendario Allenamenti
+            </Link>
+          </div>
+        </li>
+        
         <li><NavLink href="#palmares">Palmares</NavLink></li>
-        <li><NavLink href="#contatti">Contatti</NavLink></li>
+        <li><NavLink to="/contatti" onClick={handleLinkClick}>Contatti</NavLink></li>
       </ul>
 
       {/* Burger menu */}
@@ -48,9 +110,32 @@ export default function Navbar() {
           <li><NavLink to="/chi-siamo" onClick={handleLinkClick}>Chi Siamo</NavLink></li>
           <li><NavLink to="/news" onClick={handleLinkClick}>News</NavLink></li>
           <li><NavLink to="/risultati" onClick={handleLinkClick}>Risultati</NavLink></li>
-          <li><NavLink href="#calendari" onClick={handleLinkClick}>Calendari</NavLink></li>
+          
+          {/* Calendari nel menu mobile */}
+          <li>
+            <div className="border-l-2 border-yellow-400 pl-3 ml-2">
+              <p className="text-yellow-400 text-sm font-medium mb-2">Calendari</p>
+              <div className="space-y-1">
+                <Link
+                  to="/calendario-partite"
+                  onClick={handleLinkClick}
+                  className="block text-white hover:text-yellow-400 transition-colors duration-300 text-sm py-1 font-medium"
+                >
+                  Calendario Partite
+                </Link>
+                <Link
+                  to="/calendario-allenamenti"
+                  onClick={handleLinkClick}
+                  className="block text-white hover:text-yellow-400 transition-colors duration-300 text-sm py-1 font-medium"
+                >
+                  Calendario Allenamenti
+                </Link>
+              </div>
+            </div>
+          </li>
+          
           <li><NavLink href="#palmares" onClick={handleLinkClick}>Palmares</NavLink></li>
-          <li><NavLink href="#contatti" onClick={handleLinkClick}>Contatti</NavLink></li>
+          <li><NavLink to="/contatti" onClick={handleLinkClick}>Contatti</NavLink></li>
         </ul>
       </div>
     </nav>

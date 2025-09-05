@@ -11,7 +11,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Disable smooth scroll to prevent conflicts with animations */
   position: relative;
   height: 100%;
 }

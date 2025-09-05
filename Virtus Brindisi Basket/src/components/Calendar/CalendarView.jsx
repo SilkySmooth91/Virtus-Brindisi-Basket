@@ -13,26 +13,90 @@ import {
   faBan
 } from '@fortawesome/free-solid-svg-icons'
 
-export default function CalendarView({ matches, trainingSessions, onEditMatch, onEditTraining, onCreateMatch, onCreateTraining }) {
+export default function CalendarView({ 
+  matches, 
+  trainingSessions, 
+  onEditMatch, 
+  onEditTraining, 
+  onCreateMatch, 
+  onCreateTraining,
+  isPublicView = false // Nuovo prop per indicare se è una vista pubblica
+}) {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState(null)
   const [expandedDays, setExpandedDays] = useState(new Set()) // Track quali giorni sono espansi
+  const [expandedEvent, setExpandedEvent] = useState(null) // Track evento espanso su mobile
+  const [isMobile, setIsMobile] = useState(false) // Check se siamo su mobile
+  
+  // Detect mobile/tablet
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 1024) // tablet e smartphone
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Click outside handler per chiudere l'evento espanso
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Solo se c'è un evento espanso e non si è cliccato sull'evento stesso
+      if (expandedEvent && !event.target.closest('.expanded-event') && !event.target.closest('.calendar-event')) {
+        setExpandedEvent(null)
+      }
+    }
+
+    if (expandedEvent && isMobile) {
+      // Delay per evitare che si chiuda immediatamente dopo l'apertura
+      const timer = setTimeout(() => {
+        document.addEventListener('click', handleClickOutside)
+      }, 100)
+      
+      return () => {
+        clearTimeout(timer)
+        document.removeEventListener('click', handleClickOutside)
+      }
+    }
+  }, [expandedEvent, isMobile])
   
   // Navigazione mesi
   const goToPreviousMonth = () => {
     setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
     setExpandedDays(new Set()) // Reset expanded days when changing month
+    setExpandedEvent(null) // Reset expanded event
   }
 
   const goToNextMonth = () => {
     setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1))
     setExpandedDays(new Set()) // Reset expanded days when changing month
+    setExpandedEvent(null) // Reset expanded event
   }
 
   const goToToday = () => {
     setCurrentDate(new Date())
     setSelectedDate(null)
     setExpandedDays(new Set()) // Reset expanded days when navigating
+    setExpandedEvent(null) // Reset expanded event
+  }
+
+  // Funzione per gestire il click su un evento (mobile only)
+  const handleEventClick = (event, e) => {
+    if (e) e.stopPropagation()
+    
+    if (isMobile && isPublicView) {
+      // Su mobile nella vista pubblica, espandi l'evento invece di modificarlo
+      const eventKey = `${event.type}-${event.id}`
+      setExpandedEvent(expandedEvent === eventKey ? null : eventKey)
+    } else if (!isPublicView) {
+      // Comportamento normale per admin
+      if (event.type === 'match') {
+        onEditMatch(event)
+      } else {
+        onEditTraining(event)
+      }
+    }
   }
 
   // Funzione per toggle espansione di un giorno
@@ -147,7 +211,7 @@ export default function CalendarView({ matches, trainingSessions, onEditMatch, o
   const today = new Date()
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden mt-10">
+    <div className="bg-white rounded-lg shadow-lg overflow-visible mt-10">
       {/* Header del calendario */}
       <div className="bg-black text-white p-4">
         <div className="flex items-center justify-between">
@@ -179,21 +243,25 @@ export default function CalendarView({ matches, trainingSessions, onEditMatch, o
               Oggi
             </button>
             
-            <button
-              onClick={onCreateMatch}
-              className="px-3 py-1 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700 transition-colors cursor-pointer"
-            >
-              <FontAwesomeIcon icon={faPlus} className="w-3 h-3 mr-1" />
-              Partita
-            </button>
-            
-            <button
-              onClick={onCreateTraining}
-              className="px-3 py-1 bg-green-600 text-white rounded text-sm font-medium hover:bg-green-700 transition-colors cursor-pointer"
-            >
-              <FontAwesomeIcon icon={faPlus} className="w-3 h-3 mr-1" />
-              Allenamento
-            </button>
+            {!isPublicView && (
+              <>
+                <button
+                  onClick={onCreateMatch}
+                  className="px-3 py-1 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700 transition-colors cursor-pointer"
+                >
+                  <FontAwesomeIcon icon={faPlus} className="w-3 h-3 mr-1" />
+                  Partita
+                </button>
+                
+                <button
+                  onClick={onCreateTraining}
+                  className="px-3 py-1 bg-green-600 text-white rounded text-sm font-medium hover:bg-green-700 transition-colors cursor-pointer"
+                >
+                  <FontAwesomeIcon icon={faPlus} className="w-3 h-3 mr-1" />
+                  Allenamento
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -208,7 +276,7 @@ export default function CalendarView({ matches, trainingSessions, onEditMatch, o
       </div>
 
       {/* Griglia del calendario */}
-      <div className="grid grid-cols-7" style={{ minHeight: '600px' }}>
+      <div className="grid grid-cols-7 overflow-visible relative" style={{ minHeight: '600px' }}>
         {days.map((day, index) => {
           const events = getEventsForDate(day)
           const hasEvents = events.allEvents.length > 0
@@ -220,7 +288,7 @@ export default function CalendarView({ matches, trainingSessions, onEditMatch, o
           return (
             <div
               key={index}
-              className={`border-r border-b last-in-row:border-r-0 p-2 cursor-pointer transition-all duration-200 ${
+              className={`border-r border-b last-in-row:border-r-0 p-2 cursor-pointer transition-all duration-200 overflow-visible relative ${
                 !isCurrentMonth(day) ? 'bg-gray-50 text-gray-400' : 'bg-white'
               } ${isToday(day) ? 'bg-yellow-50' : ''} ${
                 isSelected(day) ? 'bg-blue-50' : ''
@@ -230,7 +298,11 @@ export default function CalendarView({ matches, trainingSessions, onEditMatch, o
               style={{ 
                 minHeight: isExpanded ? `${Math.max(128, 80 + (visibleEvents.length * 28))}px` : '96px'
               }}
-              onClick={() => setSelectedDate(selectedDate?.toDateString() === day.toDateString() ? null : day)}
+              onClick={() => {
+                setSelectedDate(selectedDate?.toDateString() === day.toDateString() ? null : day)
+                // Reset expanded event quando si clicca su una nuova cella
+                if (expandedEvent) setExpandedEvent(null)
+              }}
             >
               {/* Numero del giorno */}
               <div className="flex items-center justify-between mb-1">
@@ -257,56 +329,118 @@ export default function CalendarView({ matches, trainingSessions, onEditMatch, o
               {/* Eventi del giorno */}
               <div className="space-y-1">
                 {/* Eventi visibili */}
-                {visibleEvents.map((event, idx) => (
-                  <div
-                    key={`${event.type}-${event.id}`}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      if (event.type === 'match') {
-                        onEditMatch(event)
-                      } else {
-                        onEditTraining(event)
-                      }
-                    }}
-                    className={`text-xs p-1 rounded cursor-pointer transition-colors ${
-                      event.is_cancelled 
-                        ? 'bg-red-100 text-red-600 opacity-60' 
-                        : event.type === 'match' 
-                          ? event.is_home_match 
-                            ? 'bg-green-100 text-green-700 hover:bg-green-200' 
-                            : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
-                          : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-                    }`}
-                    title={event.type === 'match' 
-                      ? `${event.opponent_team || 'TBD'} ${event.time ? `- ${formatTime(event.time)}` : ''}` 
-                      : `Allenamento ${event.team_category || ''} ${event.time ? `- ${formatTime(event.time)}` : ''}`
-                    }
-                  >
-                    <div className="flex items-center truncate">
-                      <FontAwesomeIcon 
-                        icon={event.is_cancelled 
-                          ? faBan 
+                {visibleEvents.map((event, idx) => {
+                  const eventKey = `${event.type}-${event.id}`
+                  const isEventExpanded = expandedEvent === eventKey && isMobile
+                  
+                  return (
+                    <div
+                      key={eventKey}
+                      onClick={(e) => handleEventClick(event, e)}
+                      className={`calendar-event text-xs p-1 rounded transition-all duration-200 relative ${
+                        isPublicView ? (isMobile ? 'cursor-pointer' : 'cursor-default') : 'cursor-pointer'
+                      } ${
+                        event.is_cancelled 
+                          ? 'bg-red-100 text-red-600 opacity-60' 
                           : event.type === 'match' 
-                            ? (event.is_home_match ? faHome : faPlane) 
-                            : faDumbbell
-                        } 
-                        className="w-2 h-2 mr-1 flex-shrink-0" 
-                      />
-                      <span className="truncate">
-                        {event.type === 'match' 
-                          ? (event.opponent_team || 'TBD')
-                          : (event.team_category || 'Allenamento')
-                        }
-                      </span>
+                            ? event.is_home_match 
+                              ? `bg-green-100 text-green-700 ${!isPublicView || isMobile ? 'hover:bg-green-200' : ''}` 
+                              : `bg-yellow-100 text-yellow-700 ${!isPublicView || isMobile ? 'hover:bg-yellow-200' : ''}`
+                            : `bg-blue-100 text-blue-700 ${!isPublicView || isMobile ? 'hover:bg-blue-200' : ''}`
+                      } ${isEventExpanded ? 'expanded-event z-10 shadow-lg border border-gray-300' : ''}`}
+                      style={isEventExpanded ? {
+                        position: 'absolute',
+                        top: `${idx * 32}px`,
+                        left: '-4px',
+                        right: '-4px',
+                        zIndex: 10,
+                        minHeight: 'auto',
+                        maxWidth: '200px',
+                        width: '200px'
+                      } : {}}
+                      title={!isMobile ? (event.type === 'match' 
+                        ? `${event.opponent_team || 'TBD'} ${event.time ? `- ${formatTime(event.time)}` : ''}` 
+                        : `Allenamento ${event.team_category || ''} ${event.time ? `- ${formatTime(event.time)}` : ''}`) 
+                        : undefined
+                      }
+                    >
+                      {!isEventExpanded ? (
+                        // Vista normale
+                        <>
+                          <div className="flex items-center truncate">
+                            <FontAwesomeIcon 
+                              icon={event.is_cancelled 
+                                ? faBan 
+                                : event.type === 'match' 
+                                  ? (event.is_home_match ? faHome : faPlane) 
+                                  : faDumbbell
+                              } 
+                              className="w-2 h-2 mr-1 flex-shrink-0" 
+                            />
+                            <span className="truncate">
+                              {event.type === 'match' 
+                                ? (event.opponent_team || 'TBD')
+                                : (event.team_category || 'Allenamento')
+                              }
+                            </span>
+                          </div>
+                          {event.time && (
+                            <div className="flex items-center mt-0.5">
+                              <FontAwesomeIcon icon={faClock} className="w-2 h-2 mr-1" />
+                              <span>{formatTime(event.time)}</span>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        // Vista espansa (mobile only) - STESSO COLORE, PIÙ INFO
+                        <div className="p-2 space-y-1">
+                          <div className="flex items-center">
+                            <FontAwesomeIcon 
+                              icon={event.is_cancelled 
+                                ? faBan 
+                                : event.type === 'match' 
+                                  ? (event.is_home_match ? faHome : faPlane) 
+                                  : faDumbbell
+                              } 
+                              className="w-3 h-3 mr-2 flex-shrink-0" 
+                            />
+                            <span className="font-bold text-sm">
+                              {event.type === 'match' 
+                                ? (event.opponent_team || 'TBD')
+                                : (event.team_category || 'Allenamento')
+                              }
+                              {event.is_cancelled && ' (ANNULLATO)'}
+                            </span>
+                          </div>
+                          
+                          {event.time && (
+                            <div className="flex items-center">
+                              <FontAwesomeIcon icon={faClock} className="w-3 h-3 mr-2" />
+                              <span className="text-sm font-medium">Ore {formatTime(event.time)}</span>
+                            </div>
+                          )}
+                          
+                          {event.location && (
+                            <div className="flex items-center">
+                              <FontAwesomeIcon icon={faMapMarkerAlt} className="w-3 h-3 mr-2" />
+                              <span className="text-sm">{event.location}</span>
+                            </div>
+                          )}
+                          
+                          {event.type === 'match' && (
+                            <div className="text-xs mt-1 opacity-80">
+                              {event.is_home_match ? '🏠 Casa' : '✈️ Trasferta'}
+                            </div>
+                          )}
+                          
+                          <div className="text-xs opacity-60 mt-2 text-center">
+                            Tap fuori per chiudere
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    {event.time && (
-                      <div className="flex items-center mt-0.5">
-                        <FontAwesomeIcon icon={faClock} className="w-2 h-2 mr-1" />
-                        <span>{formatTime(event.time)}</span>
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  )
+                })}
 
                 {/* Badge per eventi aggiuntivi - Cliccabile */}
                 {hiddenEventsCount > 0 && (
@@ -346,22 +480,30 @@ export default function CalendarView({ matches, trainingSessions, onEditMatch, o
       {/* Legenda */}
       <div className="bg-gray-50 p-4 border-t">
         <div className="flex items-center justify-center space-x-6 text-xs">
-          <div className="flex items-center">
-            <div className="w-3 h-3 bg-green-100 rounded mr-2"></div>
-            <span>Partita Casa</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-3 h-3 bg-yellow-100 rounded mr-2"></div>
-            <span>Partita Trasferta</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-3 h-3 bg-blue-100 rounded mr-2"></div>
-            <span>Allenamento</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-3 h-3 bg-red-100 rounded mr-2"></div>
-            <span>Annullato</span>
-          </div>
+          {matches && matches.length > 0 && (
+            <>
+              <div className="flex items-center">
+                <div className="w-3 h-3 bg-green-100 rounded mr-2"></div>
+                <span>Partita Casa</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-3 h-3 bg-yellow-100 rounded mr-2"></div>
+                <span>Partita Trasferta</span>
+              </div>
+            </>
+          )}
+          {trainingSessions && trainingSessions.length > 0 && (
+            <div className="flex items-center">
+              <div className="w-3 h-3 bg-blue-100 rounded mr-2"></div>
+              <span>Allenamento</span>
+            </div>
+          )}
+          {(matches && matches.length > 0) || (trainingSessions && trainingSessions.length > 0) ? (
+            <div className="flex items-center">
+              <div className="w-3 h-3 bg-red-100 rounded mr-2"></div>
+              <span>Annullato</span>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

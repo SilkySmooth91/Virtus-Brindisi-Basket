@@ -1,11 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import ScrollToTop from './components/ScrollToTop';
 import Home from "./components/pages/Home";
 import ChiSiamo from "./components/pages/ChiSiamo";
 import NewsPage from "./components/pages/NewsPage";
 import ResultsPage from "./components/pages/ResultsPage";
 import NewsDetailPage from "./components/pages/NewsDetailPage";
+import TrainingSchedule from "./components/pages/TrainingSchedule";
+import MatchSchedule from "./components/pages/MatchSchedule";
+import ContactsPage from "./components/pages/ContactsPage";
 import AdminLogin from "./components/pages/AdminLogin";
 import AdminDashboard from "./components/pages/AdminDashboard";
 import StaffManagement from "./components/pages/StaffManagement";
@@ -17,17 +20,33 @@ import MatchResultsManagement from "./components/pages/MatchResultsManagement";
 import CalendarManagement from "./components/pages/CalendarManagement";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
+// Simple scroll management that works with animations
+function ScrollManager() {
+  const location = useLocation();
+  
+  useEffect(() => {
+    // Reset scroll position immediately on route change, before animations start
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [location.pathname]);
+  
+  return null;
+}
+
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <ScrollToTop />
+        <ScrollManager />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/chi-siamo" element={<ChiSiamo />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/risultati" element={<ResultsPage />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
+          <Route path="/calendario-allenamenti" element={<TrainingSchedule />} />
+          <Route path="/calendario-partite" element={<MatchSchedule />} />
+          <Route path="/contatti" element={<ContactsPage />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={
             <ProtectedRoute>

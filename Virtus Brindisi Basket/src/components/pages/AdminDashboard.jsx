@@ -7,7 +7,8 @@ import {
   faImages, 
   faTrophy, 
   faCalendarAlt,
-  faChartLine
+  faChartLine,
+  faArrowLeft
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
@@ -69,6 +70,17 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        {/* Bottone Torna al Sito */}
+        <div className="px-4 my-4 sm:px-0">
+          <Link
+            to="/"
+            className="inline-flex items-center text-yellow-500 hover:text-yellow-600 transition-colors font-medium"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} className="mr-2 w-4 h-4" />
+            Torna al Sito
+          </Link>
+        </div>
+
         {/* Welcome Section */}
         <div className="px-4 py-6 sm:px-0">
           <div className="bg-white overflow-hidden shadow rounded-lg border-l-4 border-yellow-400">

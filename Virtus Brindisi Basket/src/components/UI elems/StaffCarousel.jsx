@@ -151,7 +151,7 @@ export default function StaffCarousel() {
           {/* Pulsante Precedente */}
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-yellow-400 hover:bg-yellow-500 text-black p-3 rounded-full transition-all duration-200 hover:scale-110 z-10 shadow-lg"
+            className="absolute left-5 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-yellow-400 hover:bg-yellow-500 text-black p-3 rounded-full transition-all duration-200 hover:scale-110 z-10 shadow-lg"
             aria-label="Membro precedente"
           >
             <FontAwesomeIcon icon={faChevronLeft} className="text-lg" />

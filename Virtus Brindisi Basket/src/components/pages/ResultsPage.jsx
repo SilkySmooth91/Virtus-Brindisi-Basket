@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy, faFilter, faSpinner, faChartLine, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { motion } from 'motion/react'
 import { getAllMatchResults } from '../../api/matchResults'
 import ResultsCard from '../UI elems/ResultsCard'
 import Navbar from '../UI elems/Navbar'
@@ -104,20 +105,45 @@ export default function ResultsPage() {
       <div className="min-h-screen bg-black py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-full mb-4 border-2 border-yellow-400">
+          <motion.div 
+            className="text-center mb-8"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.div 
+              className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-full mb-4 border-2 border-yellow-400"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               <FontAwesomeIcon icon={faChartLine} className="text-3xl text-yellow-400" />
-            </div>
-            <h1 className="text-7xl uppercase font-bold text-white mb-4">
+            </motion.div>
+            <motion.h1 
+              className="text-5xl md:text-7xl uppercase font-bold text-white mb-4"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Tutti i <span className="text-yellow-400">Risultati</span>
-            </h1>
-            <p className="text-xl text-gray-300">
+            </motion.h1>
+            <motion.p 
+              className="text-xl text-gray-300"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Consulta tutti i risultati delle partite della Virtus Brindisi Basket
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
           {/* Filtri */}
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+          <motion.div 
+            className="bg-white rounded-lg shadow-lg p-6 mb-8 border-2 border-yellow-400"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center">
                 <FontAwesomeIcon icon={faFilter} className="text-yellow-500 mr-2" />
@@ -169,40 +195,80 @@ export default function ResultsPage() {
                 {filteredResults.length} risultat{filteredResults.length === 1 ? 'o' : 'i'}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contenuto */}
           {error && (
-            <div className="bg-red-900 border border-red-700 text-red-300 px-4 py-3 rounded mb-6">
+            <motion.div 
+              className="bg-red-900 border border-red-700 text-red-300 px-4 py-3 rounded mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, delay: 0.3 }}
+            >
               {error}
-            </div>
+            </motion.div>
           )}
 
           {filteredResults.length === 0 ? (
-            <div className="text-center py-12">
-              <FontAwesomeIcon icon={faChartLine} className="text-6xl text-gray-600 mb-4" />
-              <h3 className="text-xl font-medium text-white mb-2">
+            <motion.div 
+              className="text-center py-12"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, delay: 0.3 }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, delay: 0.3 }}
+              >
+                <FontAwesomeIcon icon={faChartLine} className="text-6xl text-gray-600 mb-4" />
+              </motion.div>
+              <motion.h3 
+                className="text-xl font-medium text-white mb-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, delay: 0.3 }}
+              >
                 {hasFilters ? 'Nessun risultato trovato' : 'Non ci sono ancora risultati'}
-              </h3>
-              <p className="text-gray-400 mb-4">
+              </motion.h3>
+              <motion.p 
+                className="text-gray-400 mb-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, delay: 0.3 }}
+              >
                 {hasFilters ? 'Prova a modificare i filtri.' : 'I risultati appariranno qui quando disponibili.'}
-              </p>
+              </motion.p>
               {hasFilters && (
-                <button
+                <motion.button
                   onClick={clearFilters}
                   className="px-4 py-2 bg-yellow-400 text-black rounded-md hover:bg-yellow-300 transition-colors font-medium"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2, delay: 0.3 }}
                 >
                   Mostra tutti i risultati
-                </button>
+                </motion.button>
               )}
-            </div>
+            </motion.div>
           ) : (
-            <div className="space-y-4">
-              {filteredResults.map((result) => {
+            <motion.div 
+              className="space-y-4"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              {filteredResults.map((result, index) => {
                 const virtusWon = isVirtusWin(result)
                 
                 return (
-                  <div key={result.id} className="relative">
+                  <motion.div 
+                    key={result.id} 
+                    className="relative"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 + (index * 0.1) }}
+                  >
                     {virtusWon && (
                       <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 z-10">
                         <div className="bg-yellow-400 rounded-full p-2 shadow-lg">
@@ -221,10 +287,10 @@ export default function ResultsPage() {
                       category={result.category || "Categoria"}
                       isFullWidth={true}
                     />
-                  </div>
+                  </motion.div>
                 )
               })}
-            </div>
+            </motion.div>
           )}
         </div>
       </div>
