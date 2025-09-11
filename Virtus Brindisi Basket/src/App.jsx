@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { initializeStorageBuckets } from './lib/storageManager';
 import Home from "./components/pages/Home";
 import ChiSiamo from "./components/pages/ChiSiamo";
 import NewsPage from "./components/pages/NewsPage";
@@ -34,6 +35,11 @@ function ScrollManager() {
 }
 
 function App() {
+  // Inizializza i bucket di storage all'avvio
+  useEffect(() => {
+    initializeStorageBuckets()
+  }, [])
+
   return (
     <AuthProvider>
       <Router>

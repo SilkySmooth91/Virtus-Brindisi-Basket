@@ -1,4 +1,5 @@
 import { motion } from "motion/react"
+import { Link } from "react-router-dom"
 import InfoCard from "./InfoCard"
 import MainButton from "./MainButton"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -20,10 +21,12 @@ export default function CallToAction() {
                     <p className="mb-6">
                         Ogni trofeo racconta una storia di impegno, dedizione e spirito di squadra. Ma il nostro più grande successo resta la crescita umana e sportiva dei nostri atleti.
                     </p>
-                    <MainButton>
-                        Unisciti a noi
-                        <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
-                    </MainButton>
+                    <Link to="/contatti">
+                        <MainButton>
+                            Unisciti a noi
+                            <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
+                        </MainButton>
+                    </Link>
                 </div>
             </InfoCard>
         </motion.div>

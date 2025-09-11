@@ -5,7 +5,6 @@ import {
   faArrowLeft, 
   faSave, 
   faSpinner,
-  faImage,
   faEye,
   faEyeSlash
 } from '@fortawesome/free-solid-svg-icons'
@@ -13,6 +12,7 @@ import MDEditor from '@uiw/react-md-editor'
 import '@uiw/react-md-editor/markdown-editor.css'
 import { createNews, updateNews, getNewsById } from '../../api/news'
 import MainButton from '../UI elems/MainButton'
+import ImageUploader from '../UI elems/ImageUploader'
 import './NewsEditor.css'
 
 export default function NewsEditor() {
@@ -30,7 +30,6 @@ export default function NewsEditor() {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [imagePreview, setImagePreview] = useState('')
   const [initialLoading, setInitialLoading] = useState(isEdit)
   const [editorKey, setEditorKey] = useState(0) // Per forzare re-render dell'editor
 
@@ -53,7 +52,6 @@ export default function NewsEditor() {
         published: newsData.published !== undefined ? newsData.published : true,
         author: newsData.author || 'Virtus Brindisi Basket'
       })
-      setImagePreview(newsData.image_url || '')
       // Forza re-render dell'editor dopo il caricamento
       setTimeout(() => setEditorKey(prev => prev + 1), 100)
     } catch (err) {
@@ -78,11 +76,13 @@ export default function NewsEditor() {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
+  }
 
-    // Update image preview when image_url changes
-    if (name === 'image_url') {
-      setImagePreview(value)
-    }
+  const handleImageChange = (imageUrl) => {
+    setFormData(prev => ({
+      ...prev,
+      image_url: imageUrl
+    }))
   }
 
   const handleSubmit = async (e) => {
@@ -116,10 +116,6 @@ export default function NewsEditor() {
     } finally {
       setLoading(false)
     }
-  }
-
-  const handleImageError = () => {
-    setImagePreview('')
   }
 
   if (initialLoading) {
@@ -236,45 +232,14 @@ export default function NewsEditor() {
                   />
                 </div>
 
-                {/* Image URL */}
-                <div>
-                  <label htmlFor="image_url" className="block text-sm font-medium text-gray-700 mb-2">
-                    URL Immagine di Copertina
-                  </label>
-                  <input
-                    type="url"
-                    id="image_url"
-                    name="image_url"
-                    value={formData.image_url}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
-                    placeholder="https://esempio.com/immagine.jpg"
-                  />
-                </div>
-
-                {/* Image Preview */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Anteprima Immagine
-                  </label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-                    {imagePreview ? (
-                      <img
-                        src={imagePreview}
-                        alt="Anteprima"
-                        className="max-w-full h-48 object-cover mx-auto rounded"
-                        onError={handleImageError}
-                      />
-                    ) : (
-                      <div className="py-8">
-                        <FontAwesomeIcon icon={faImage} className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                        <p className="text-gray-500 text-sm">
-                          Inserisci un URL per vedere l'anteprima
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                {/* Image Upload */}
+                <ImageUploader
+                  currentImageUrl={formData.image_url}
+                  onImageChange={handleImageChange}
+                  bucketName="news-image"
+                  label="Immagine di Copertina"
+                  maxSize={5}
+                />
 
                 {/* Published Toggle */}
                 <div className="flex items-center space-x-3">
