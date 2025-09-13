@@ -20,7 +20,7 @@ export class SupabaseStorageManager {
         const { error: createError } = await supabase.storage.createBucket(bucketName, {
           public: true,
           allowedMimeTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
-          fileSizeLimit: 5 * 1024 * 1024 // 5MB
+          fileSizeLimit: 10 * 1024 * 1024 // 10MB
         })
 
         if (createError) {

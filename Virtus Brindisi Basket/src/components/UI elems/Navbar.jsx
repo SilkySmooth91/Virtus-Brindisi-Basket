@@ -52,7 +52,7 @@ export default function Navbar() {
         <li className="relative" ref={dropdownRef}>
           <button
             onClick={toggleCalendarDropdown}
-            className="flex items-center space-x-1 px-4 py-2 text-white hover:text-yellow-400 transition-colors duration-300 font-medium"
+            className="cursor-pointer flex items-center space-x-1 px-4 py-2 text-white hover:text-yellow-400 transition-colors duration-300 font-medium"
           >
             <span>Calendari</span>
             <FontAwesomeIcon 

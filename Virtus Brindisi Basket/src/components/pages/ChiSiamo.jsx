@@ -2,7 +2,7 @@ import Navbar from "../UI elems/Navbar"
 import Hero from "../UI elems/Hero"
 import Footer from "../UI elems/Footer"
 import StaffCarousel from "../UI elems/StaffCarousel"
-import chisiamoBg from '../../assets/hero.jpg' // Sostituisci con la tua immagine per Chi Siamo
+import chisiamoBg from '../../assets/chisiamoBG.jpg' // Sostituisci con la tua immagine per Chi Siamo
 import { motion } from "motion/react"
 
 export default function ChiSiamo() {

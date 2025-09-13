@@ -62,8 +62,8 @@ export default function GalleryForm({ image, onClose, onSave }) {
         return
       }
 
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        setError('Il file è troppo grande. Massimo 5MB.')
+      if (file.size > 10 * 1024 * 1024) { // 10MB limit
+        setError('Il file è troppo grande. Massimo 10MB.')
         return
       }
 
@@ -224,7 +224,7 @@ export default function GalleryForm({ image, onClose, onSave }) {
                     {uploading ? 'Caricamento...' : 'Clicca per selezionare un\'immagine'}
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
-                    PNG, JPG, GIF fino a 5MB
+                    PNG, JPG, GIF fino a 10MB
                   </p>
                 </div>
               </label>

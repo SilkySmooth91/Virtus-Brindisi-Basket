@@ -13,6 +13,7 @@ import { motion } from 'motion/react'
 import MarkdownPreview from '@uiw/react-markdown-preview'
 import Navbar from '../UI elems/Navbar'
 import Footer from '../UI elems/Footer'
+import SocialShare from '../UI elems/SocialShare'
 import { getNewsById } from '../../api/news'
 
 export default function NewsDetailPage() {
@@ -233,6 +234,20 @@ export default function NewsDetailPage() {
                   }}
                 />
               </div>
+            </motion.div>
+
+            {/* Condivisione Social */}
+            <motion.div 
+              className="px-6 pb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <SocialShare
+                url={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5174'}/news/${article.id}`}
+                title={article.title}
+                description={article.content.substring(0, 150) + '...'}
+              />
             </motion.div>
 
           </motion.div>
