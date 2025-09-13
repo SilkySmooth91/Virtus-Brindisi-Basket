@@ -58,6 +58,11 @@ export default function CalendarEvent({ event, idx, expandedEvent, handleEventCl
               }
             </span>
           </div>
+          {event.type === 'match' && event.team_category && (
+            <div className="text-xs opacity-70 truncate">
+              {event.team_category}
+            </div>
+          )}
           {event.time && (
             <div className="flex items-center mt-0.5">
               <FontAwesomeIcon icon={faClock} className="w-2 h-2 mr-1" />
@@ -85,6 +90,11 @@ export default function CalendarEvent({ event, idx, expandedEvent, handleEventCl
               {event.is_cancelled && ' (ANNULLATO)'}
             </span>
           </div>
+          {event.type === 'match' && event.team_category && (
+            <div className="text-sm font-medium opacity-80 ml-5">
+              {event.team_category}
+            </div>
+          )}
           {event.time && (
             <div className="flex items-center">
               <FontAwesomeIcon icon={faClock} className="w-3 h-3 mr-2" />
