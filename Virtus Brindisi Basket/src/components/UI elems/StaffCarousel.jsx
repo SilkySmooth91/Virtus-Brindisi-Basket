@@ -61,7 +61,9 @@ export default function StaffCarousel() {
   }
   
   // Calcola la trasformazione per mostrare le card
-  const translateX = -(currentIndex * (100 / cardsPerView))
+  const translateX = cardsPerView === 1 
+    ? -(currentIndex * (100 / staffMembers.length))  // Mobile: una card alla volta senza offset
+    : -(currentIndex * (100 / cardsPerView))         // Desktop/Tablet: comportamento originale
   
   // Loading state
   if (loading) {
@@ -103,7 +105,7 @@ export default function StaffCarousel() {
         className="overflow-hidden relative"
       >
         <motion.div 
-          className="flex transition-transform duration-500 ease-in-out gap-4"
+          className="flex transition-transform duration-500 ease-in-out"
           style={{
             transform: `translateX(${translateX}%)`,
             width: `${(staffMembers.length / cardsPerView) * 100}%`
@@ -112,10 +114,10 @@ export default function StaffCarousel() {
           {staffMembers.map((member, index) => (
             <div
               key={index}
-              className="flex-shrink-0"
+              className="flex-shrink-0 md:mx-2"
               style={{ width: `${100 / staffMembers.length}%` }}
             >
-              <InfoCard className="h-full mx-2">
+              <InfoCard className="h-full">
                 <div className="p-6 text-center flex flex-col items-center">
                   {/* Foto rotonda */}
                   <div className="mb-4">
@@ -180,7 +182,7 @@ export default function StaffCarousel() {
                   ? 'bg-yellow-400 scale-125'
                   : 'bg-gray-400 hover:bg-gray-600'
               }`}
-              aria-label={`Vai alla posizione ${index + 1}`}
+              aria-label={`Vai alla posizione ${index}`}
             />
           ))}
         </div>

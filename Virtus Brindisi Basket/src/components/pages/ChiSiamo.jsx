@@ -17,7 +17,7 @@ export default function ChiSiamo() {
           subtitle="Scopri la storia, i valori e la passione che guidano la nostra società sportiva."
           showScrollButton={true}
           scrollTarget="chi-siamo-content"
-          overlayOpacity="bg-black/50"
+          overlayOpacity="bg-black/30"
         />
         
         {/* La nostra storia */}
