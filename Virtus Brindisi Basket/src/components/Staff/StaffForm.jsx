@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons'
 import { staffApi } from '../../api/staff'
 import MainButton from '../UI elems/MainButton'
+import ImageUploader from '../UI elems/ImageUploader'
 
 export default function StaffForm({ staff, onClose, onSave }) {
   const [formData, setFormData] = useState({
@@ -38,6 +39,13 @@ export default function StaffForm({ staff, onClose, onSave }) {
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }))
     }
+  }
+
+  const handleImageChange = (imageUrl) => {
+    setFormData(prev => ({
+      ...prev,
+      photo: imageUrl
+    }))
   }
 
   const validateForm = () => {
@@ -143,24 +151,15 @@ export default function StaffForm({ staff, onClose, onSave }) {
             )}
           </div>
 
-          {/* URL Foto */}
-          <div>
-            <label htmlFor="photo" className="block text-sm font-medium text-gray-700 mb-2">
-              URL Foto
-            </label>
-            <input
-              type="url"
-              id="photo"
-              name="photo"
-              value={formData.photo}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
-              placeholder="https://esempio.com/foto.jpg"
-            />
-            <p className="mt-1 text-sm text-gray-500">
-              Inserisci l'URL di un'immagine per la foto del profilo
-            </p>
-          </div>
+          {/* Foto */}
+          <ImageUploader
+            currentImageUrl={formData.photo}
+            onImageChange={handleImageChange}
+            bucketName="staff-photos"
+            label="Foto del Staff"
+            maxSize={10}
+            className="col-span-2"
+          />
 
           {/* Descrizione */}
           <div>
