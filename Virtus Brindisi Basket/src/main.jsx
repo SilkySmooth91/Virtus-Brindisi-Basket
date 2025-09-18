@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { Analytics } from '@vercel/analytics/react'
 
 // Enable native scroll restoration to handle scroll position on navigation
 if (typeof window !== 'undefined' && 'scrollRestoration' in history) {
@@ -11,5 +12,6 @@ if (typeof window !== 'undefined' && 'scrollRestoration' in history) {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
+    <Analytics />
   </StrictMode>,
 )
