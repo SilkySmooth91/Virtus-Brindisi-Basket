@@ -37,14 +37,16 @@ export default function ChiSiamo() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="text-lg md:text-xl leading-relaxed mb-6">
-              La Virtus Brindisi Basket nasce dalla passione per lo sport del basket e dalla volontà di creare una comunità che formi non solo atleti, ma soprattutto persone. <br />
+              La Virtus Brindisi Basket nasce nel luglio del 2016 per svolgere un ruolo nell’ambito dell’attività giovanile in un territorio, Brindisi e la sua provincia, dove è fortemente radicata la passione per il basket. <br />
               <br />
-              Attraverso i nostri programmi di allenamento e le nostre attività, miriamo a sviluppare le potenzialità di ogni atleta, dai più piccoli ai più esperti.
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed dolor possimus consectetur? Laborum aliquid provident, odio maxime, laudantium iure odit eaque alias, repudiandae delectus reprehenderit qui enim consequuntur? Hic, ducimus.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima fugiat repellat optio unde reiciendis accusantium aperiam ullam quasi modi ducimus, maiores nulla, nemo deserunt voluptatum velit sint adipisci non vel. <br />
+              Si è voluto partire dalle basi, dai più piccoli, seguendo una linea di pensiero rivolta a riproporre la pallacanestro nella sua essenza originaria di “gioco”, quindi di divertimento, cercando di aiutare, in uno con la famiglia, a sviluppare la crescita dell’uomo che è insito in ogni bambino, prima che dell’atleta. <br />
+              Questo ci ha spinto a perseguire lo sviluppo tecnico del giovane senza sottoporlo alla pressione del risultato ad ogni costo, favorendo la creazione intorno alla società di un clima di serena partecipazione anche da parte delle famiglie. <br />
               <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores sunt nulla obcaecati minima officia? Commodi, labore quasi, omnis veritatis culpa corporis sed dolore dicta minus, voluptas vero sunt! Quod, quae!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque fugiat repudiandae est nostrum fuga unde, obcaecati necessitatibus eveniet rem? Sapiente provident tempora quaerat amet facere quis inventore quam adipisci unde.
+              Dopo anni di attività giovanile rivolta al mondo maschile, lo scorso anno la Virtus ha affrontato per la prima volta un campionato senior, per consentire la continuità tecnica ed agonistica a quei ragazzi che avevano esaurito il ciclo giovanile, ma soprattutto ha scelto di aprirsi anche al settore femminile per completare la propria offerta formativa. <br />
+              I risultati di queste nuove iniziative sono stati di assoluto interesse sia tecnico che partecipativo, tanto da incoraggiarci a proseguire in questi nuovi percorsi. <br />
+              L’impegno costante, la scelta di uno staff tecnico di comprovata esperienza con doti caratteriali in linea con la filosofia societaria, ha favorito la crescita costante della Virtus, oggi la terza realtà cestistica locale per numero di tesserati ed attività svolta. <br />
+              <br />
+              Ma il successo più gratificante è rappresentato oggi dall’affermarsi, nei discorsi, commenti e nell'immaginario generale degli appassionati di basket brindisi, dell’idea di “famiglia Virtus”.
             </motion.p>
           </div>
         </section>

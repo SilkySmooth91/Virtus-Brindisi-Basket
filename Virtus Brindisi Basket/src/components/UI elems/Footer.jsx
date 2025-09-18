@@ -94,12 +94,12 @@ export default function Footer() {
         {/* Copyright e Crediti */}
         <div className="border-t border-gray-700 pt-6">
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 relative">
-            <p className="text-gray-400">
+            <p className="text-gray-400 text-center">
               © 2025 Virtus Brindisi Basket. Tutti i diritti riservati.
             </p>
             
             <div className="flex items-center gap-2 text-gray-400 md:border-l md:border-gray-400 md:pl-4">
-              <span>Sito realizzato da Lorenzo Olivieri</span>
+              <span className="text-center">Sito realizzato da Lorenzo Olivieri</span>
               <a 
                 href="https://www.linkedin.com/in/lorenzo-olivieri" 
                 target="_blank" 
@@ -118,10 +118,10 @@ export default function Footer() {
               </a>
             </div>
 
-            {/* Admin Login Link - Posizionato in basso a destra */}
+            {/* Admin Login Link - Responsive positioning */}
             <Link 
               to="/admin/login"
-              className="absolute bottom-0 right-0 text-gray-500 hover:text-yellow-400 transition-colors duration-300 py-2 px-3 rounded-full hover:bg-gray-800"
+              className="md:absolute md:bottom-0 md:right-0 mt-4 md:mt-0 text-gray-500 hover:text-yellow-400 transition-colors duration-300 py-2 px-3 rounded-full hover:bg-gray-800 order-last"
               title="Accesso Amministratore"
             >
               <FontAwesomeIcon icon={faLock} className="text-sm" />

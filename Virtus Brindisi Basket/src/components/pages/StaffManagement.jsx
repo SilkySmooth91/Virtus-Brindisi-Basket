@@ -7,7 +7,9 @@ import {
   faArrowLeft,
   faToggleOn,
   faToggleOff,
-  faUser
+  faUser,
+  faArrowUp,
+  faArrowDown
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { staffApi } from '../../api/staff'
@@ -29,7 +31,23 @@ export default function StaffManagement() {
     try {
       setLoading(true)
       const data = await staffApi.getAll()
-      setStaff(data)
+      
+      // Controlla se alcuni membri non hanno display_order
+      const needsReorder = data.some(member => !member.display_order)
+      
+      if (needsReorder) {
+        // Assegna display_order sequenziali a tutti i membri
+        const updatePromises = data.map((member, index) => 
+          staffApi.update(member.id, { display_order: index + 1 })
+        )
+        await Promise.all(updatePromises)
+        
+        // Ricarica i dati aggiornati
+        const updatedData = await staffApi.getAll()
+        setStaff(updatedData)
+      } else {
+        setStaff(data)
+      }
     } catch (err) {
       setError('Errore nel caricamento dello staff')
       console.error('Load staff error:', err)
@@ -79,6 +97,35 @@ export default function StaffManagement() {
     setShowForm(false)
     setEditingStaff(null)
     loadStaff() // Ricarica i dati
+  }
+
+  const moveStaff = async (direction, index) => {
+    try {
+      const targetIndex = direction === 'up' ? index - 1 : index + 1
+
+      // Controlli di sicurezza
+      if (targetIndex < 0 || targetIndex >= staff.length) return
+
+      // Crea una copia dell'array per la manipolazione
+      const updatedStaff = [...staff]
+      
+      // Rimuove l'elemento dalla posizione corrente e lo inserisce nella nuova posizione
+      const [movedItem] = updatedStaff.splice(index, 1)
+      updatedStaff.splice(targetIndex, 0, movedItem)
+
+      // Aggiorna tutti i display_order con valori sequenziali
+      const updatePromises = updatedStaff.map((member, newIndex) => 
+        staffApi.update(member.id, { display_order: newIndex + 1 })
+      )
+
+      await Promise.all(updatePromises)
+
+      // Ricarica lo staff per aggiornare l'ordine
+      loadStaff()
+    } catch (err) {
+      alert('Errore durante il riordinamento')
+      console.error('Reorder error:', err)
+    }
   }
 
   if (loading) {
@@ -144,7 +191,7 @@ export default function StaffManagement() {
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {staff.map((member) => (
+              {staff.map((member, index) => (
                 <div
                   key={member.id}
                   className={`bg-white rounded-lg shadow-md overflow-hidden border-l-4 ${
@@ -187,14 +234,48 @@ export default function StaffManagement() {
                     )}
 
                     <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        member.is_active 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {member.is_active ? 'Attivo' : 'Inattivo'}
-                      </span>
+                      {/* Controlli ordinamento e stato */}
+                      <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-1">
+                          <button
+                            onClick={() => moveStaff('up', index)}
+                            disabled={index === 0}
+                            className={`p-2 text-sm border rounded transition-colors ${
+                              index === 0
+                                ? 'text-gray-300 border-gray-200 cursor-not-allowed'
+                                : 'text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300'
+                            }`}
+                            title="Sposta su"
+                          >
+                            <FontAwesomeIcon icon={faArrowUp} className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={() => moveStaff('down', index)}
+                            disabled={index === staff.length - 1}
+                            className={`p-2 text-sm border rounded transition-colors ${
+                              index === staff.length - 1
+                                ? 'text-gray-300 border-gray-200 cursor-not-allowed'
+                                : 'text-blue-600 border-blue-200 hover:bg-blue-50 hover:border-blue-300'
+                            }`}
+                            title="Sposta giù"
+                          >
+                            <FontAwesomeIcon icon={faArrowDown} className="w-3 h-3" />
+                          </button>
+                          <span className="text-xs text-gray-500 ml-2">
+                            #{member.display_order || index + 1}
+                          </span>
+                        </div>
+                        
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          member.is_active 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {member.is_active ? 'Attivo' : 'Inattivo'}
+                        </span>
+                      </div>
 
+                      {/* Pulsanti modifica ed eliminazione */}
                       <div className="flex space-x-2">
                         <button
                           onClick={() => handleEdit(member)}

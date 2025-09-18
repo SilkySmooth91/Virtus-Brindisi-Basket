@@ -106,7 +106,7 @@ export class SupabaseStorageManager {
 
 // Helper per inizializzare i bucket necessari
 export async function initializeStorageBuckets() {
-  const buckets = ['gallery', 'news-image']
+  const buckets = ['gallery', 'news-image', 'staff_images']
   
   console.log('🔄 Initializing Supabase Storage buckets...')
   
