@@ -77,8 +77,14 @@ export default function StaffForm({ staff, onClose, onSave }) {
         // Modifica esistente
         result = await staffApi.update(staff.id, formData)
       } else {
-        // Nuovo staff
-        result = await staffApi.create(formData)
+        // Nuovo staff - ottieni il prossimo display_order
+        const allStaff = await staffApi.getAll()
+        const maxOrder = Math.max(...allStaff.map(s => s.display_order || 0), 0)
+        const staffDataWithOrder = {
+          ...formData,
+          display_order: maxOrder + 1
+        }
+        result = await staffApi.create(staffDataWithOrder)
       }
       
       onSave?.(result)
@@ -155,7 +161,7 @@ export default function StaffForm({ staff, onClose, onSave }) {
           <ImageUploader
             currentImageUrl={formData.photo}
             onImageChange={handleImageChange}
-            bucketName="staff-photos"
+            bucketName="staff_images"
             label="Foto del Staff"
             maxSize={10}
             className="col-span-2"

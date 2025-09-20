@@ -48,22 +48,30 @@ export default function StaffCarousel() {
     
     return () => window.removeEventListener('resize', updateCardsPerView)
   }, [])
+
+  // Reset currentIndex quando cambia il numero di card per view o il numero di membri
+  useEffect(() => {
+    const newMaxIndex = Math.max(0, staffMembers.length - cardsPerView)
+    if (currentIndex > newMaxIndex) {
+      setCurrentIndex(0)
+    }
+  }, [cardsPerView, staffMembers.length, currentIndex])
   
   // Calcola il numero massimo di posizioni possibili
   const maxIndex = Math.max(0, staffMembers.length - cardsPerView)
   
   const goToPrevious = () => {
+    if (staffMembers.length <= cardsPerView) return // Non serve navigazione se tutto è visibile
     setCurrentIndex(prev => prev > 0 ? prev - 1 : maxIndex)
   }
   
   const goToNext = () => {
+    if (staffMembers.length <= cardsPerView) return // Non serve navigazione se tutto è visibile
     setCurrentIndex(prev => prev < maxIndex ? prev + 1 : 0)
   }
   
   // Calcola la trasformazione per mostrare le card
-  const translateX = cardsPerView === 1 
-    ? -(currentIndex * (100 / staffMembers.length))  // Mobile: una card alla volta senza offset
-    : -(currentIndex * (100 / cardsPerView))         // Desktop/Tablet: comportamento originale
+  const translateX = -(currentIndex * (100 / cardsPerView))
   
   // Loading state
   if (loading) {
@@ -108,14 +116,14 @@ export default function StaffCarousel() {
           className="flex transition-transform duration-500 ease-in-out"
           style={{
             transform: `translateX(${translateX}%)`,
-            width: `${(staffMembers.length / cardsPerView) * 100}%`
+            width: '100%'
           }}
         >
           {staffMembers.map((member, index) => (
             <div
               key={index}
-              className="flex-shrink-0 md:mx-2"
-              style={{ width: `${100 / staffMembers.length}%` }}
+              className="flex-shrink-0 px-2"
+              style={{ width: `${100 / cardsPerView}%` }}
             >
               <InfoCard className="h-full">
                 <div className="p-6 text-center flex flex-col items-center">
@@ -162,7 +170,7 @@ export default function StaffCarousel() {
           {/* Pulsante Successivo */}
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-yellow-400 hover:bg-yellow-500 text-black p-3 rounded-full transition-all duration-200 hover:scale-110 z-10 shadow-lg"
+            className="absolute right-5 top-1/2 transform -translate-y-1/2 translate-x-4 bg-yellow-400 hover:bg-yellow-500 text-black p-3 rounded-full transition-all duration-200 hover:scale-110 z-10 shadow-lg"
             aria-label="Membro successivo"
           >
             <FontAwesomeIcon icon={faChevronRight} className="text-lg" />

@@ -86,7 +86,7 @@ export default function Navbar() {
           </div>
         </li>
         
-        <li><NavLink href="#palmares">Palmares</NavLink></li>
+        <li><NavLink to="/palmares" onClick={handleLinkClick}>Palmares</NavLink></li>
         <li><NavLink to="/contatti" onClick={handleLinkClick}>Contatti</NavLink></li>
       </ul>
 
@@ -134,7 +134,7 @@ export default function Navbar() {
             </div>
           </li>
           
-          <li><NavLink href="#palmares" onClick={handleLinkClick}>Palmares</NavLink></li>
+          <li><NavLink to="/palmares" onClick={handleLinkClick}>Palmares</NavLink></li>
           <li><NavLink to="/contatti" onClick={handleLinkClick}>Contatti</NavLink></li>
         </ul>
       </div>

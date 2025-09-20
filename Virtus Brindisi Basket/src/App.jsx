@@ -5,6 +5,7 @@ import Home from "./components/pages/Home";
 import ChiSiamo from "./components/pages/ChiSiamo";
 import NewsPage from "./components/pages/NewsPage";
 import ResultsPage from "./components/pages/ResultsPage";
+import PalmaresPage from "./components/pages/PalmaresPage";
 import NewsDetailPage from "./components/pages/NewsDetailPage";
 import TrainingSchedule from "./components/pages/TrainingSchedule";
 import MatchSchedule from "./components/pages/MatchSchedule";
@@ -43,6 +44,7 @@ function App() {
           <Route path="/chi-siamo" element={<ChiSiamo />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/risultati" element={<ResultsPage />} />
+          <Route path="/palmares" element={<PalmaresPage />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
           <Route path="/calendario-allenamenti" element={<TrainingSchedule />} />
           <Route path="/calendario-partite" element={<MatchSchedule />} />
