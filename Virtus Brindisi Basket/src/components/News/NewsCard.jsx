@@ -123,7 +123,7 @@ export default function NewsCard({ article, showFullDate = false, showAuthor = t
 
         {/* Contenuto */}
         <div className={`text-gray-600 leading-relaxed flex-1 ${compact ? 'text-sm' : ''}`}>
-          <p className={`${compact ? 'line-clamp-2' : 'line-clamp-4'}`}>
+          <p className={`${compact ? 'line-clamp-2' : 'line-clamp-2 sm:line-clamp-3 md:line-clamp-4'}`}>
             {truncateContent(article.content, compact ? 100 : 200)}
           </p>
           

@@ -25,7 +25,7 @@ export default function ResultsCard({
   const loserScoreClass = "text-black font-bold"
 
   return (
-    <InfoCard className={`${isFullWidth ? 'w-full' : 'lg:min-w-lg'} px-6 py-8`}>
+    <InfoCard className={`${isFullWidth ? 'w-full' : 'lg:min-w-lg'} px-6 py-8 ${!isFullWidth ? 'h-48' : ''}`}>
       <div className="space-y-3 w-full">
         <div className={`flex gap-4 ${isFullWidth ? 'justify-start' : 'justify-center'}`}>
             {/* Data */}
