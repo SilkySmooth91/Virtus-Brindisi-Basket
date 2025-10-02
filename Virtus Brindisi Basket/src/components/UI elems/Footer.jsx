@@ -19,19 +19,19 @@ export default function Footer() {
               <li className="flex items-start gap-3 justify-center">
                 <FontAwesomeIcon icon={faMapMarkerAlt} className="text-yellow-400 mt-1 flex-shrink-0" />
                 <div className="text-white text-center">
-                  <p className="text-center">Via dello Sport, 12</p>
+                  <p className="text-center">Via Lanzellotti, 45</p>
                   <p className="text-center">72100 Brindisi (BR)</p>
                 </div>
               </li>
               
               <li className="flex items-center gap-3 justify-center">
                 <FontAwesomeIcon icon={faPhone} className="text-yellow-400 flex-shrink-0" />
-                <p className="text-white text-center">+39 0831 123456</p>
+                <p className="text-white text-center">+39 338 4270033</p>
               </li>
               
               <li className="flex items-center gap-3 justify-center">
                 <FontAwesomeIcon icon={faEnvelope} className="text-yellow-400 flex-shrink-0" />
-                <p className="text-white text-center">info@virtusbrindisibasket.it</p>
+                <p className="text-white text-center">virtus.brindisibasket@gmail.com</p>
               </li>
             </ul>
           </div>
@@ -39,6 +39,7 @@ export default function Footer() {
           {/* Newsletter */}
           <div>
             <h3 className="p-title text-yellow-400 text-2xl mb-6 text-center">Newsletter</h3>
+            <p className='text-sm text-gray-400 text-center'>Coming soon!</p>
             <p className="text-white mb-4 text-center">
               Resta aggiornato su tutte le novità della squadra, partite e eventi speciali.
             </p>

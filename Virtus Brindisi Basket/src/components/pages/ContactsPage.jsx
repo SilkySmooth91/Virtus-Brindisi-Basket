@@ -15,12 +15,12 @@ import MainButton from '../UI elems/MainButton'
 export default function ContactsPage() {
   const contactInfo = {
     address: {
-      street: "Via dello Sport, 12",
+      street: "Via Lanzellotti, 45",
       city: "72100 Brindisi (BR)",
       region: "Puglia, Italia"
     },
-    phone: "+39 0831 123456",
-    email: "info@virtusbrindisibasket.it",
+    phone: "+39 338 4270033",
+    email: "virtus.brindisibasket@gmail.com",
     socialMedia: {
       instagram: "https://www.instagram.com/virtusbrindisibasket",
       facebook: "https://www.facebook.com/virtusbrindisibasket", 

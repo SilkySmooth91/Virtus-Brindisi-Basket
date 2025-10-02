@@ -146,7 +146,7 @@ export default function NewsDetailPage() {
           {/* Immagine principale */}
           {article.image_url && !imageError && (
             <motion.div 
-              className="relative h-64 md:h-96 mb-8 rounded-lg overflow-hidden"
+              className="relative aspect-[3/2] w-full mb-8 rounded-lg overflow-hidden"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
