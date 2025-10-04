@@ -74,7 +74,7 @@ export default function NewsCard({ article, showFullDate = false, showAuthor = t
       {/* Immagine */}
       {article.image_url && !imageError && (
         <div className={`relative ${
-          compact ? 'w-32 h-24 flex-shrink-0' : 'h-48 flex-shrink-0'
+          compact ? 'w-32 aspect-[16/10] flex-shrink-0' : 'aspect-[16/10] flex-shrink-0'
         }`}>
           <img
             src={article.image_url}
@@ -89,10 +89,10 @@ export default function NewsCard({ article, showFullDate = false, showAuthor = t
       {/* Contenuto */}
       <div className={`p-6 ${compact ? 'flex-1' : 'flex-1 flex flex-col'}`}>
         {/* Header */}
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
+        <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
           <div className="flex flex-col space-y-2">
             <div className="flex items-center">
-              <FontAwesomeIcon icon={faCalendarAlt} className="w-4 h-4 mr-1" />
+              <FontAwesomeIcon icon={faCalendarAlt} className="w-3 h-3 mr-1" />
               <time dateTime={article.created_at}>
                 {formatDate(article.created_at)}
               </time>
@@ -100,7 +100,7 @@ export default function NewsCard({ article, showFullDate = false, showAuthor = t
             
             {showAuthor && article.author && (
               <div className="flex items-center">
-                <FontAwesomeIcon icon={faUser} className="w-4 h-4 mr-1" />
+                <FontAwesomeIcon icon={faUser} className="w-3 h-3 mr-1" />
                 <span>{article.author}</span>
               </div>
             )}
@@ -123,8 +123,8 @@ export default function NewsCard({ article, showFullDate = false, showAuthor = t
 
         {/* Contenuto */}
         <div className={`text-gray-600 leading-relaxed flex-1 ${compact ? 'text-sm' : ''}`}>
-          <p className={`${compact ? 'line-clamp-2' : 'line-clamp-2 sm:line-clamp-3 md:line-clamp-4'}`}>
-            {truncateContent(article.content, compact ? 100 : 200)}
+          <p className="line-clamp-2">
+            {truncateContent(article.content, compact ? 100 : 150)}
           </p>
           
           <div className="mt-auto pt-4">

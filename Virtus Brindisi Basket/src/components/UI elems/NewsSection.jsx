@@ -92,18 +92,18 @@ export default function NewsSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1 }}
                 viewport={{ once: true }}>
-                <InfoCard className="p-6 flex-col justify-start h-[500px] md:w-lg">
+                <InfoCard className="px-6 pb-6 pt-3 flex-col justify-start h-[500px] md:w-lg">
                   {article.image_url && (
                     <img 
                       src={article.image_url} 
                       alt={article.title}
-                      className="w-full h-48 object-cover rounded-lg mb-4"
+                      className="w-full aspect-[16/10] object-cover rounded-lg mb-4"
                     />
                   )}
                   <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
                     {article.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-4">
+                  <p className="text-gray-600 text-sm mb-2 line-clamp-4">
                     {article.excerpt || article.content?.substring(0, 150) + '...'}
                   </p>
                   <div className="flex flex-grow w-full text-left">
