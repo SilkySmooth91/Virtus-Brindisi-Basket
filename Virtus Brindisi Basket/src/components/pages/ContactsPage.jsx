@@ -25,11 +25,6 @@ export default function ContactsPage() {
       instagram: "https://www.instagram.com/virtusbrindisibasket",
       facebook: "https://www.facebook.com/virtusbrindisibasket", 
       youtube: "https://www.youtube.com/@virtusbrindisibasket1087"
-    },
-    openingHours: {
-      weekdays: "Lunedì - Venerdì: 15:00 - 21:00",
-      weekend: "Sabato: 09:00 - 19:00",
-      sunday: "Domenica: 09:00 - 13:00"
     }
   }
 
@@ -172,22 +167,23 @@ export default function ContactsPage() {
               
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Lun - Ven</span>
-                  <span className="font-semibold text-gray-900">15:00 - 21:00</span>
+                  <span className="text-gray-600">Lunedì</span>
+                  <span className="font-semibold text-gray-900">17:30 - 19:30</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Sabato</span>
-                  <span className="font-semibold text-gray-900">09:00 - 19:00</span>
+                  <span className="text-gray-600">Mercoledì</span>
+                  <span className="font-semibold text-gray-900">17:30 - 19:30</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Domenica</span>
-                  <span className="font-semibold text-gray-900">09:00 - 13:00</span>
+                  <span className="text-gray-600">Venerdì</span>
+                  <span className="font-semibold text-gray-900">17:30 - 19:30</span>
                 </div>
               </div>
               
               <div className="pt-4 border-t border-gray-200">
                 <p className="text-sm text-gray-600 text-center">
-                  Per informazioni su iscrizioni, corsi e attività, contattaci durante gli orari di apertura.
+                  Orari di apertura Centro Minibasket. <br />
+                  Per informazioni su iscrizioni, corsi e attività inerenti ad altre formazioni, contattaci direttamente.
                 </p>
               </div>
             </motion.div>

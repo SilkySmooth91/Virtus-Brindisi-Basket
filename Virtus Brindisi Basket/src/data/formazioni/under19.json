@@ -1,0 +1,47 @@
+{
+  "under19": {
+    "nome": "Under 19",
+    "giocatori": [
+      {
+        "nome": "Marco",
+        "cognome": "Rossi",
+        "ruolo": "Playmaker"
+      },
+      {
+        "nome": "Luca",
+        "cognome": "Bianchi", 
+        "ruolo": "Guardia"
+      },
+      {
+        "nome": "Andrea",
+        "cognome": "Verdi",
+        "ruolo": "Ala piccola"
+      },
+      {
+        "nome": "Francesco",
+        "cognome": "Neri",
+        "ruolo": "Ala grande"
+      },
+      {
+        "nome": "Antonio",
+        "cognome": "Gialli",
+        "ruolo": "Centro"
+      },
+      {
+        "nome": "Matteo",
+        "cognome": "Bruno",
+        "ruolo": "Sesta uomo"
+      },
+      {
+        "nome": "Giovanni",
+        "cognome": "Azzurri",
+        "ruolo": "Guardia"
+      },
+      {
+        "nome": "Davide",
+        "cognome": "Viola",
+        "ruolo": "Ala piccola"
+      }
+    ]
+  }
+}
