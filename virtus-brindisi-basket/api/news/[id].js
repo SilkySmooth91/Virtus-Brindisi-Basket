@@ -29,6 +29,8 @@ export default async function handler(req, res) {
       .single()
     
     console.log('Supabase response:', { article: !!article, error })
+    console.log('Article data:', article)
+    console.log('Full error details:', error)
     
     if (error || !article) {
       console.log('Article not found or error:', error)
@@ -59,6 +61,15 @@ export default async function handler(req, res) {
 }
 
 function generateStaticHTML(article) {
+  console.log('Generating HTML for article:', {
+    id: article.id,
+    title: article.title,
+    hasContent: !!article.content,
+    hasImageUrl: !!article.image_url,
+    createdAt: article.created_at,
+    allFields: Object.keys(article)
+  })
+  
   // Create a truncated description (max 160 characters for SEO)
   const description = article.content 
     ? article.content.substring(0, 160).replace(/<[^>]*>/g, '') + '...'
@@ -66,6 +77,8 @@ function generateStaticHTML(article) {
   
   // Get image URL (use first image from content or fallback)
   const imageUrl = article.image_url || 'https://virtusbrindisi.it/assets/logo-b.png'
+  
+  console.log('Generated meta data:', { description, imageUrl })
   
   return `<!DOCTYPE html>
 <html lang="it">
