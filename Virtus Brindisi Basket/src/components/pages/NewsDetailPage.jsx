@@ -15,7 +15,6 @@ import Navbar from '../UI elems/Navbar'
 import Footer from '../UI elems/Footer'
 import SocialShare from '../UI elems/SocialShare'
 import { getNewsById } from '../../api/news'
-import { updateMetaTags, resetMetaTags } from '../../lib/metaTags'
 
 export default function NewsDetailPage() {
   const { id } = useParams()
@@ -44,28 +43,6 @@ export default function NewsDetailPage() {
       fetchArticle()
     }
   }, [id])
-
-  // Update meta tags when article loads
-  useEffect(() => {
-    if (article) {
-      const description = article.content 
-        ? article.content.substring(0, 160).replace(/<[^>]*>/g, '') + '...'
-        : 'Leggi le ultime notizie della Virtus Brindisi Basket'
-      
-      updateMetaTags({
-        title: article.title,
-        description: description,
-        image: article.image_url || 'https://virtusbrindisi.it/logo-b.png',
-        url: `https://virtusbrindisi.it/news/${article.id}`,
-        type: 'article'
-      })
-    }
-    
-    // Cleanup: reset meta tags when component unmounts
-    return () => {
-      resetMetaTags()
-    }
-  }, [article])
 
   // Cleanup effect per evitare memory leaks
   useEffect(() => {
@@ -146,6 +123,40 @@ export default function NewsDetailPage() {
 
   return (
     <>
+      {/* React 19 Native Meta Tags */}
+      <title>{article.title} | Virtus Brindisi Basket</title>
+      <meta name="description" content={
+        article.content 
+          ? article.content.substring(0, 160).replace(/<[^>]*>/g, '') + '...'
+          : 'Leggi le ultime notizie della Virtus Brindisi Basket'
+      } />
+      
+      {/* Open Graph Meta Tags */}
+      <meta property="og:title" content={article.title} />
+      <meta property="og:description" content={
+        article.content 
+          ? article.content.substring(0, 160).replace(/<[^>]*>/g, '') + '...'
+          : 'Leggi le ultime notizie della Virtus Brindisi Basket'
+      } />
+      <meta property="og:image" content={article.image_url || 'https://virtusbrindisi.it/logo-b.png'} />
+      <meta property="og:url" content={`https://virtusbrindisi.it/news/${article.id}`} />
+      <meta property="og:type" content="article" />
+      <meta property="og:site_name" content="Virtus Brindisi Basket" />
+      
+      {/* Twitter Card Meta Tags */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={article.title} />
+      <meta name="twitter:description" content={
+        article.content 
+          ? article.content.substring(0, 160).replace(/<[^>]*>/g, '') + '...'
+          : 'Leggi le ultime notizie della Virtus Brindisi Basket'
+      } />
+      <meta name="twitter:image" content={article.image_url || 'https://virtusbrindisi.it/logo-b.png'} />
+      
+      {/* WhatsApp Meta Tags */}
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
       <Navbar />
       <div className="min-h-screen bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
