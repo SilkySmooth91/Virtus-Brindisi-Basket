@@ -1,8 +1,6 @@
 {
   "functions": {
-    "api/news/[id].js": {
-      "runtime": "@vercel/node@3.0.7"
-    }
+    "api/news/[id].js": {}
   },
   "rewrites": [
     {
