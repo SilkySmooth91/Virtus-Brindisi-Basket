@@ -247,6 +247,7 @@ export default function NewsDetailPage() {
                 url={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5174'}/news/${article.id}`}
                 title={article.title}
                 description={article.content.substring(0, 150) + '...'}
+                newsId={article.id}
               />
             </motion.div>
 

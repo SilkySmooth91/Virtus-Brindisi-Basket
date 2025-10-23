@@ -15,7 +15,7 @@
     "@fortawesome/free-regular-svg-icons": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
     "@fortawesome/react-fontawesome": "^0.2.3",
-    "@supabase/supabase-js": "^2.56.0",
+    "@supabase/supabase-js": "^2.76.1",
     "@tailwindcss/vite": "^4.1.11",
     "@uiw/react-markdown-preview": "^5.1.5",
     "@uiw/react-md-editor": "^4.0.8",

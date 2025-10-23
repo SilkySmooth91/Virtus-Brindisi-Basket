@@ -12,9 +12,13 @@ export default function SocialShare({
   url, 
   title, 
   description = '',
-  className = '' 
+  className = '',
+  newsId = null
 }) {
-  const shareUrl = url
+  // Use static URL for social sharing if newsId is provided
+  const shareUrl = newsId 
+    ? `${window.location.origin}/news/${newsId}`
+    : url
   const shareTitle = title
   const shareText = `${title} ${description}`.trim()
 
