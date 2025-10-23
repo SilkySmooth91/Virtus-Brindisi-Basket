@@ -1,6 +1,8 @@
 {
   "functions": {
-    "api/news/[id].js": {}
+    "api/news/[id].js": {
+      "maxDuration": 10
+    }
   },
   "rewrites": [
     {
