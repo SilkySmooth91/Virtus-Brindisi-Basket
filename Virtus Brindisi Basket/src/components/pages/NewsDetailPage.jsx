@@ -15,6 +15,7 @@ import Navbar from '../UI elems/Navbar'
 import Footer from '../UI elems/Footer'
 import SocialShare from '../UI elems/SocialShare'
 import { getNewsById } from '../../api/news'
+import { updateMetaTags, resetMetaTags } from '../../lib/metaTags'
 
 export default function NewsDetailPage() {
   const { id } = useParams()
@@ -43,6 +44,28 @@ export default function NewsDetailPage() {
       fetchArticle()
     }
   }, [id])
+
+  // Update meta tags when article loads
+  useEffect(() => {
+    if (article) {
+      const description = article.content 
+        ? article.content.substring(0, 160).replace(/<[^>]*>/g, '') + '...'
+        : 'Leggi le ultime notizie della Virtus Brindisi Basket'
+      
+      updateMetaTags({
+        title: article.title,
+        description: description,
+        image: article.image_url || 'https://virtusbrindisi.it/logo-b.png',
+        url: `https://virtusbrindisi.it/news/${article.id}`,
+        type: 'article'
+      })
+    }
+    
+    // Cleanup: reset meta tags when component unmounts
+    return () => {
+      resetMetaTags()
+    }
+  }, [article])
 
   // Cleanup effect per evitare memory leaks
   useEffect(() => {

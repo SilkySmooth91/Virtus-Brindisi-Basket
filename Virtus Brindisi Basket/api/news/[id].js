@@ -2,16 +2,22 @@ import { createClient } from '@supabase/supabase-js'
 
 // Initialize Supabase client for server-side
 const supabase = createClient(
-  process.env.VITE_SUPABASE_URL,
+  process.env.VITE_SUPABASE_URL || 'https://igpkbpenghmdrrwuihol.supabase.co',
   process.env.SUPABASE_SERVICE_ROLE_KEY
 )
 
 export default async function handler(req, res) {
   const { id } = req.query
   
+  // Log per debug
+  console.log('API call received for ID:', id)
+  console.log('User-Agent:', req.headers['user-agent'])
+  
   // Check if request is from a social media crawler
   const userAgent = req.headers['user-agent'] || ''
   const isCrawler = /facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegrambot|skypeuripreview/i.test(userAgent)
+  
+  console.log('Is crawler:', isCrawler)
   
   try {
     // Get the news article from Supabase
@@ -22,7 +28,10 @@ export default async function handler(req, res) {
       .eq('published', true)
       .single()
     
+    console.log('Supabase response:', { article: !!article, error })
+    
     if (error || !article) {
+      console.log('Article not found or error:', error)
       // If article not found, redirect to main site
       if (!isCrawler) {
         return res.redirect(302, '/')
@@ -33,17 +42,19 @@ export default async function handler(req, res) {
 
     // If it's a crawler, serve static HTML with meta tags
     if (isCrawler) {
+      console.log('Serving HTML for crawler')
       const html = generateStaticHTML(article)
       res.setHeader('Content-Type', 'text/html')
       return res.status(200).send(html)
     }
     
     // If it's a regular user, redirect to the React app
+    console.log('Redirecting user to React app')
     res.redirect(302, `/#/news/${id}`)
     
   } catch (error) {
     console.error('Error fetching article:', error)
-    res.status(500).json({ error: 'Internal server error' })
+    res.status(500).json({ error: 'Internal server error', details: error.message })
   }
 }
 
