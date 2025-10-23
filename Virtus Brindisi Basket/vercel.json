@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/news/(\\d+)",
+      "destination": "/api/news/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
