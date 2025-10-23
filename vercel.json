@@ -1,7 +1,7 @@
 {
-  "buildCommand": "cd 'Virtus Brindisi Basket' && npm run build",
-  "outputDirectory": "Virtus Brindisi Basket/dist",
-  "installCommand": "cd 'Virtus Brindisi Basket' && npm install",
+  "buildCommand": "cd 'virtus-brindisi-basket' && npm run build",
+  "outputDirectory": "virtus-brindisi-basket/dist",
+  "installCommand": "cd 'virtus-brindisi-basket' && npm install",
   "framework": null,
   "rewrites": [
     {
