@@ -94,7 +94,7 @@ function generateStaticHTML(article) {
   <meta property="og:title" content="${article.title}">
   <meta property="og:description" content="${description}">
   <meta property="og:image" content="${imageUrl}">
-  <meta property="og:url" content="https://virtusbrindisi.it/news/${article.id}">
+  <meta property="og:url" content="https://www.virtusbrindisibasket.it/news/${article.id}">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Virtus Brindisi Basket">
   

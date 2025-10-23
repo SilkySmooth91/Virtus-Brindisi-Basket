@@ -5,7 +5,11 @@
   "framework": null,
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/news/(\\d+)",
+      "destination": "/api/news/$1"
+    },
+    {
+      "source": "/((?!api).*)",
       "destination": "/index.html"
     }
   ]
