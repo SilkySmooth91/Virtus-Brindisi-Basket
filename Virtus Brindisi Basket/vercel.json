@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/news/[id].js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
     {
       "source": "/news/(\\d+)",
